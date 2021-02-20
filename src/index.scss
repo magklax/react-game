@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+body {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 14px;
+  color: #333;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+}
+
+.ddcontainer {
+  margin: 0 5%;
+}
+
+.content {
+  height: 100vh;
+  width: 100%;
+  background-image: url('./Game/images/bg.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
