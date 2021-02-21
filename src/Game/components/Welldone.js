@@ -4,14 +4,14 @@ import colors from './../../config/colors';
 import { Context } from '../../context/context';
 import { FaPlay } from "react-icons/fa";
 
-const { torchRed, scarlet, limeade } = colors;
+const { torchred, scarlet, limeade } = colors;
 
 const Message = styled.p`
   margin-bottom: 20px;
-  color: ${torchRed};
+  color: ${torchred};
 	font-size: 78px;
   font-weight: 900;
-  font-stretch: expanded;
+  white-space: nowrap;
 	text-transform: uppercase;
   -webkit-text-stroke: 3px white;
 `;

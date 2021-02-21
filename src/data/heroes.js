@@ -1,8 +1,9 @@
-import buzz from './buzz.png';
-import nemo from './nemo.png';
-import mater from './mater.png';
-import peppa from './peppa.png';
-import skye from './skye.png';
+import buzz from './images/buzz.png';
+import dory from './images/dory.png';
+import mater from './images/mater.png';
+import peppa from './images/peppa.png';
+import skye from './images/skye.png';
+import sully from './images/sully.png';
 
 export const heroes = [
   {
@@ -14,12 +15,8 @@ export const heroes = [
     image: buzz,
   },
   {
-    name: 'nemo',
-    image: nemo,
-  },
-  {
-    name: 'mater',
-    image: mater,
+    name: 'dory',
+    image: dory,
   },
   {
     name: 'skye',
@@ -28,5 +25,9 @@ export const heroes = [
   {
     name: 'peppa',
     image: peppa,
+  },
+  {
+    name: 'sully',
+    image: sully,
   },
 ]

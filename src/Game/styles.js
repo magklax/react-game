@@ -37,17 +37,11 @@ export const GameOver = styled.div`
   transition: 0.3s;
 `;
 
-export const Overlay = styled.div`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-  z-index: ${({ isVisible }) => isVisible ? '1' : '-1'};
-  opacity: ${({ isVisible }) => isVisible ? '1' : '0'};
-  transition: 0.5s ease;
+export const Wrapper = styled.div`
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url(${({ bg }) => bg});
+  background-size: cover;
+  background-repeat: no-repeat;
 `;

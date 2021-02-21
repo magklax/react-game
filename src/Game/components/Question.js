@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from './../../config/colors';
 
-const { torchRed, eggBlue } = colors;
+const { torchred, eggblue } = colors;
 
 const Message = styled.p`
   margin-bottom: 10px;
-  color: ${torchRed};
+  color: ${torchred};
 	font-size: 52px;
   font-weight: 900;
   font-stretch: expanded;
@@ -19,8 +19,8 @@ const Frame = styled.div`
   height: 200px;
   padding: 5px;
   border-radius: 15px;
-  background-color: ${eggBlue};
-  border: 5px solid ${torchRed};
+  background-color: ${eggblue};
+  border: 5px solid ${torchred};
   text-align: center;
 
   img {

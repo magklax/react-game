@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FaPause, FaPlay } from "react-icons/fa";
 import colors from '../../config/colors';
 
-const { white, cerise, scarlet } = colors;
+const { white, cerise, scarlet, yellow } = colors;
 
 let interval;
 
@@ -18,7 +18,7 @@ const Pause = styled.button`
   width: 60px;
   height: 60px;
   font-size: 28px;
-  color: ${white};
+  color: ${scarlet};
   background-color: transparent;
   border: 6px solid ${scarlet};
   border-radius: 50%;
@@ -42,7 +42,7 @@ const Timer = styled.div`
 
 const Controls = () => {
   const { state, dispatch } = useContext(Context);
-  const { roundgoes, roundpaused } = state;
+  const { played, paused, finished } = state.roundState;
 
   const [second, setSecond] = useState('00');
   const [minute, setMinute] = useState('00');
@@ -60,7 +60,7 @@ const Controls = () => {
   }
 
   useEffect(() => {
-    if (roundgoes && !roundpaused) {
+    if (played && !paused) {
       interval = setInterval(() => {
         const minCounter = Math.floor(counter / 60);
         const secCounter = counter % 60;
@@ -75,12 +75,12 @@ const Controls = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [counter, roundgoes, roundpaused]);
+  }, [counter, played, paused]);
 
   useEffect(() => {
-    if (!roundgoes && !roundpaused) {
-      setMinute('00');
-      setSecond('00');
+    if (finished) {
+      setMinute(prev => prev = '00');
+      setSecond(prev => prev = '00');
       setCounter(0);
 
       return dispatch({
@@ -88,11 +88,11 @@ const Controls = () => {
         payload: counter,
       })
     }
-  }, [roundgoes]);
+  }, [finished]);
 
   return (
     <>
-      <Timer isVisible={roundgoes}>
+      <Timer isVisible={played}>
         <span>{minute}</span>:<span>{second}</span>
       </Timer>
       <Pause onClick={onClick} type="button">

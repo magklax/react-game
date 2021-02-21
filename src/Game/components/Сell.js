@@ -63,7 +63,7 @@ export default ({ letter, color }) => {
     setTimeout(() => dispatch({
       type: 'match',
       payload: letter,
-    }), 1000);
+    }), 300);
   }
 
   useEffect(() => setMatch(false), [state.roundover]);
