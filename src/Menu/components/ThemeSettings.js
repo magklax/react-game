@@ -30,13 +30,13 @@ const Item = styled.li`
 const ThemeSettings = () => {
   const { state, dispatch } = useContext(Context);
 
-  const handleClick = (evt) => {
-
-    return dispatch({
+  const handleClick = (evt) => (
+    dispatch({
       type: 'theme',
       payload: evt.target.dataset.bg
     })
-  }
+  )
+
   return (
     <>
       <h3>Choose Theme</h3>

@@ -30,11 +30,15 @@ const Item = styled.li`
 const BalloonSettings = () => {
   const { state, dispatch } = useContext(Context);
 
-  const handleClick = (evt) => { }
-  // dispatch({
-  //   type: 'balloon',
-  //   payload: evt.target.title
-  // })
+  console.log(state);
+
+  const handleClick = (evt) => (
+    dispatch({
+      type: 'balloon',
+      payload: evt.target.dataset.bg
+    })
+  )
+
 
   return (
     <>
@@ -44,9 +48,9 @@ const BalloonSettings = () => {
           <Item
             bg={balloon.image}
             key={`theme-${balloon.name}`}
-            title={balloon.name}
+            data-bg={balloon.image}
             onClick={handleClick}
-            isActive={balloon.theme === balloon.name}
+            isActive={state.balloon === balloon.image}
           ></Item>
         ))}
       </List>

@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { DragDropContainer } from 'react-drag-drop-container';
 import colors from './../../utils/colors';
-
-import balloonBlue from './../images/balloon-blue.png';
-import { useEffect } from 'react';
+import { Context } from '../../context/context';
 
 const { white, strawberry } = colors;
 
@@ -26,10 +24,10 @@ const getRandomDelay = (min, max) => {
 const Letter = styled.span`
   position: absolute;
   left: 50%;
-  top: 35%;
+  top: 42%;
   transform: translate(-50%, -50%);
   color: ${white};
-  font-size: 54px;
+  font-size: 42px;
   font-weight: 400;
   -webkit-text-stroke: 4px ${strawberry};
 `;
@@ -39,13 +37,18 @@ const Balloon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
   animation: ${bounce} ${() => getRandomDelay(3, 4)} linear infinite;
   animation-play-state: ${({ isAnimated }) => isAnimated ? 'running' : 'paused'};
   cursor: pointer;
+
+  img {
+    height: 150px;
+    width: auto;
+  }
 `;
 
 export default ({ id, letter }) => {
+  const { state } = useContext(Context);
   const [isAnimated, setIsAnimated] = useState(true);
   const [isDropped, setIsDropped] = useState(false);
 
@@ -74,7 +77,7 @@ export default ({ id, letter }) => {
       <Balloon
         isAnimated={isAnimated}
       >
-        <img src={balloonBlue} draggable="false" />
+        <img src={state.balloon} draggable="false" />
         <Letter>{letter}</Letter>
       </Balloon>
     </DragDropContainer>

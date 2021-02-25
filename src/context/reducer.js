@@ -1,8 +1,10 @@
 import { heroes } from './../data/heroes';
 import { themes } from './../data/themes';
+import { balloons } from './../data/balloons';
 
 export const initialState = {
   theme: themes[0].bg,
+  balloon: balloons[0].image,
   volume: {
     music: 0.5,
     sound: 0.5
@@ -72,6 +74,8 @@ export const reducer = (state, action) => {
       return { ...state, volume: { ...state.volume, sound: action.payload } }
     case 'theme':
       return { ...state, theme: action.payload }
+    case 'balloon':
+      return { ...state, balloon: action.payload }
     default:
       return state;
   }
