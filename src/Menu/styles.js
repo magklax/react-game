@@ -1,14 +1,12 @@
 
 import styled from 'styled-components';
-import colors from '../config/colors';
+import colors from '../utils/colors';
 
-const { white, torchred, eggblue, limeade, cerise, scarlet } = colors;
+const { white } = colors;
 
 export const Item = styled.li`
-  width: 400px;
-  margin-bottom: 30px;
   padding: 10px 20px;
-  font-size: 26px;
+  font-size: 20px;
   background-color: ${white};
   border-radius: 10px;
   text-align: center;
@@ -19,25 +17,19 @@ export const Item = styled.li`
     grid-gap: 20px;
     justify-content: space-between;
     justify-items: center;
-  }
-
-  &:nth-child(2) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    grid-column: 1/3;
   }
 `;
 
-export const List = styled.ul`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+export const Grid = styled.ul`
+  display: grid;
+  grid-template-columns: repeat(2, 400px);
+  grid-gap: 20px;
 `;
 
 export const Title = styled.h2`
-  margin-bottom: 25px;
-  font-size: 48px;
+  margin-bottom: 20px;
+  font-size: 36px;
 `;
 
 export const Wrapper = styled.div`
@@ -47,7 +39,6 @@ export const Wrapper = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
 `
-
 export const Overlay = styled.div`
   position: fixed;
   left: 0;

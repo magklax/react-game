@@ -1,40 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
-import colors from './../../config/colors';
+import colors from './../../utils/colors';
 
-const { torchred, eggblue } = colors;
+const { torchred, eggblue, white } = colors;
 
 const Message = styled.p`
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   color: ${torchred};
-	font-size: 52px;
+  text-align: center;
+	font-size: 48px;
   font-weight: 900;
   font-stretch: expanded;
-	text-transform: uppercase;
   -webkit-text-stroke: 3px #fff;
 `;
 
 const Frame = styled.div`
-  width: 200px;
-  height: 200px;
-  padding: 5px;
+  font-size: 0;
+  overflow: hidden;
   border-radius: 15px;
-  background-color: ${eggblue};
-  border: 5px solid ${torchred};
+  border: 10px solid ${eggblue};
   text-align: center;
 
   img {
-    max-height: 100%;
-    object-fit: contain;
+    width: 200px;
   }
 `;
 
 const Wrapper = styled.div`
-  position: fixed;
-  min-width: 470px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;

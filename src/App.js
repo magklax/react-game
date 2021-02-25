@@ -1,32 +1,43 @@
 import React, { useReducer } from 'react';
+import { BrowserRouter, Switch, Route, } from "react-router-dom";
 import { Context } from './context/context';
-import reducer from './context/reducer';
-import Game from './Game/Game';
-import Menu from './Menu/Menu';
+import { reducer, initialState } from './context/reducer';
+import Intro from './Intro';
+import Menu from './Menu';
+import Game from './Game';
+import MisicToggle from './Common/MusicToggle';
+import Final from './Final';
+import Stats from './Stats';
 
 // const PATH = 'https://ssl.gstatic.com/dictionary/static/sounds/oxford/';
 
-const initialState = {
-  theme: 'spring',
-  volume: 50,
-  results: [],
-  roundState: {
-    word: '',
-    cells: '',
-    image: null,
-    played: true,
-    paused: false,
-    finished: false,
-  }
-}
-
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, { ...initialState });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
     <Context.Provider value={{ state, dispatch }}>
-      <Menu />
-      <Game />
+      <BrowserRouter>
+        <MisicToggle />
+        <Switch>
+          <Route exact path="/">
+            <Intro />
+          </Route>
+
+          <Route path="/game">
+            <Game />
+            <Menu />
+          </Route>
+
+          <Route path="/final">
+            <Final />
+          </Route>
+
+          <Route path="/stats">
+            <Stats />
+          </Route>
+
+        </Switch>
+      </BrowserRouter>
     </Context.Provider>
   );
 }

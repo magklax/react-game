@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Context } from './../../context/context';
-import colors from './../../config/colors';
+import colors from './../../utils/colors';
 import { themes } from './../../data/themes';
 
-const { white, limeade } = colors;
-
+const { white, larioja } = colors;
 
 const List = styled.ul`
   width: 100%;
@@ -21,7 +20,7 @@ const Item = styled.li`
   justify-content: center;
   width: 70px;
   height: 70px;
-  border: 5px solid ${({ isActive }) => isActive ? limeade : white};
+  border: 5px solid ${({ isActive }) => isActive ? larioja : white};
   border-radius: 10px;
   background-image: url(${({ bg }) => bg});
   background-size: cover;
@@ -31,24 +30,24 @@ const Item = styled.li`
 const ThemeSettings = () => {
   const { state, dispatch } = useContext(Context);
 
-  const handleClick = (evt) => (
-    dispatch({
-      type: 'theme',
-      payload: evt.target.title
-    })
-  )
+  const handleClick = (evt) => {
 
+    return dispatch({
+      type: 'theme',
+      payload: evt.target.dataset.bg
+    })
+  }
   return (
     <>
       <h3>Choose Theme</h3>
       <List>
         {themes.length && themes.map((theme) => (
           <Item
-            bg={theme.src}
+            bg={theme.preview}
             key={`theme-${theme.name}`}
-            title={theme.name}
+            data-bg={theme.bg}
             onClick={handleClick}
-            isActive={state.theme === theme.name}
+            isActive={state.theme === theme.bg}
           ></Item>
         ))}
       </List>

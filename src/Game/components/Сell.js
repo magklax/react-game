@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import useSound from 'use-sound';
-import colors from './../../config/colors';
+import colors from './../../utils/colors';
 import { confetti } from 'dom-confetti';
 import { Context } from '../../context/context';
 import { DropTarget } from 'react-drag-drop-container';
-import pop from './../sounds/pop.wav';
+import url from './../sounds/pop.wav';
 
 const { white } = colors;
 
@@ -18,7 +18,6 @@ const Letter = styled.div`
   opacity: ${({ match }) => match ? 1 : 0};
   font-size: 54px;
   font-weight: 400;
-  text-transform: uppercase;
   -webkit-text-stroke: 3px #fff;
 `;
 
@@ -44,38 +43,47 @@ export default ({ letter, color }) => {
 
   const [hover, setHover] = useState(false);
   const [match, setMatch] = useState(false);
-  const [play] = useSound(pop);
+  const [play] = useSound(url, {
+    volume: state.volume.sound,
+  });
 
-  const onDragEnter = () => setHover(true);
-  const unHighlight = () => setHover(false);
-
-  const dropped = (evt) => {
-    setHover(false);
-    setMatch(true);
-    play();
-
-    confetti(evt.target, {
+  const getConfetti = (target) => {
+    confetti(target, {
       spread: 360,
       startVelocity: 15,
       elementCount: 100
     })
-
-    setTimeout(() => dispatch({
-      type: 'match',
-      payload: letter,
-    }), 300);
   }
 
-  useEffect(() => setMatch(false), [state.roundover]);
+  const handleEnter = () => {
+    if (!match) setHover(true)
+  }
+
+  const handleLeave = () => {
+    if (!match) setHover(false);
+  }
+
+  const dropped = (evt) => {
+    setMatch(true);
+
+    // getConfetti(evt.target);
+
+    play();
+
+    return dispatch({
+      type: 'match',
+      payload: letter,
+    })
+  }
 
   return (
     <DropTarget
       targetKey={letter}
-      onDragEnter={onDragEnter}
-      onDragLeave={unHighlight}
+      onDragEnter={handleEnter}
+      onDragLeave={handleLeave}
       onHit={dropped}
     >
-      <Cell hover={hover}>
+      <Cell hover={hover} onClick={dropped}>
         <Letter
           match={match}
           title={letter}

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { DragDropContainer } from 'react-drag-drop-container';
-import colors from './../../config/colors';
+import colors from './../../utils/colors';
 
 import balloonBlue from './../images/balloon-blue.png';
+import { useEffect } from 'react';
 
-const { white, scarlet } = colors;
+const { white, strawberry } = colors;
 
-const rotate = keyframes`
+const bounce = keyframes`
   0% {
     transform: translateY(-20px)
   }
@@ -30,8 +31,7 @@ const Letter = styled.span`
   color: ${white};
   font-size: 54px;
   font-weight: 400;
-  text-transform: uppercase;
-  -webkit-text-stroke: 4px ${scarlet};
+  -webkit-text-stroke: 4px ${strawberry};
 `;
 
 const Balloon = styled.div`
@@ -39,25 +39,27 @@ const Balloon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  animation: ${rotate} ${() => getRandomDelay(3, 4)} linear infinite;
+  width: 120px;
+  animation: ${bounce} ${() => getRandomDelay(3, 4)} linear infinite;
   animation-play-state: ${({ isAnimated }) => isAnimated ? 'running' : 'paused'};
   cursor: pointer;
 `;
 
 export default ({ id, letter }) => {
   const [isAnimated, setIsAnimated] = useState(true);
+  const [isDropped, setIsDropped] = useState(false);
 
   const onDrop = (evt) => {
+    setIsDropped(true);
     evt.target.style.visibility = 'hidden';
   }
 
   const onDragStart = () => {
-    setIsAnimated(false);
+    if (!isDropped) setIsAnimated(false);
   }
 
   const onDragEnd = () => {
-    setIsAnimated(true);
+    if (!isDropped) setIsAnimated(true);
   }
 
   return (
