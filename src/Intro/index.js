@@ -14,19 +14,15 @@ const Intro = () => {
 
   return (
     <Overlay>
-      {/* {loading ? <Loader /> :} */}
-      <>
-        <Cloud />
-        <Wrapper>
-          <Rainbow />
-          <Info>
-            <Sun />
-            <Title>Pop and Spell</Title>
-            <Button to="/game">Play Game</Button>
-          </Info>
-        </Wrapper>
-      </>
-
+      <Cloud />
+      <Wrapper>
+        <Rainbow />
+        <Info>
+          <Sun />
+          <Title>Pop and Spell</Title>
+          <Button to="/game">Play Game</Button>
+        </Info>
+      </Wrapper>
     </Overlay >
   )
 }

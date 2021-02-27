@@ -40,21 +40,17 @@ const Wrapper = styled.div`
   transition: 0.3s;
 `;
 
-const Welldone = ({ isVisible }) => {
+export default ({ isVisible }) => {
   const [isOver, setIsOver] = useState(false);
   const { state, dispatch } = useContext(Context);
-  const { rounds, results } = state;
+  const { roundNumber, currRound } = state;
 
   useEffect(() => {
-    if (rounds === results.length) setIsOver(true);
-  }, [results]);
+    if (roundNumber <= currRound) setIsOver(true);
+  }, [currRound]);
 
   const onClick = () => {
-    if (!isOver) {
-      return dispatch({
-        type: 'roundstart',
-      })
-    }
+    (!isOver) ? dispatch({ type: 'roundstart' }) : dispatch({ type: 'gameover' });
   }
 
   return (
@@ -69,5 +65,3 @@ const Welldone = ({ isVisible }) => {
     </Wrapper>
   )
 }
-
-export default Welldone;

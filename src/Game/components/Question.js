@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from './../../utils/colors';
 
-const { torchred, eggblue, white } = colors;
+const { torchred, eggblue } = colors;
 
 const Message = styled.p`
   margin-bottom: 25px;
@@ -15,15 +15,19 @@ const Message = styled.p`
 `;
 
 const Frame = styled.div`
-  font-size: 0;
-  overflow: hidden;
+  width: 200px;
+  height: 200px;
   border-radius: 15px;
   border: 10px solid ${eggblue};
-  text-align: center;
+  background-color: ${torchred};
+`;
 
-  img {
-    width: 200px;
-  }
+const Image = styled.div`
+  width: 100%;
+  height: 100%;
+  background: url(${({ bg }) => bg}) no-repeat center;
+  clip-path: ${({ mode }) => mode === "hard" ? 'circle(15% at 50% 50%)' : 'none'};
+  background-size: cover;
 `;
 
 const Wrapper = styled.div`
@@ -32,15 +36,11 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Question = ({ image }) => {
-  return (
-    <Wrapper>
-      <Message>What is my name?</Message>
-      <Frame>
-        <img src={image} />
-      </Frame>
-    </Wrapper>
-  )
-}
-
-export default Question;
+export default ({ bg, mode }) => (
+  <Wrapper>
+    <Message>What is my name?</Message>
+    <Frame>
+      <Image bg={bg} mode={mode}></Image>
+    </Frame>
+  </Wrapper>
+)

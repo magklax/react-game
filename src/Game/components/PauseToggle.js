@@ -24,7 +24,7 @@ const Button = styled.button`
   }
 `;
 
-const PauseToggle = () => {
+export default () => {
   const { dispatch } = useContext(Context);
   const [icon, setIcon] = useState(true);
 
@@ -47,5 +47,3 @@ const PauseToggle = () => {
     </>
   )
 }
-
-export default PauseToggle;

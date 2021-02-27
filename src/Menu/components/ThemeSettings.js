@@ -27,7 +27,7 @@ const Item = styled.li`
   cursor: pointer;
 `;
 
-const ThemeSettings = () => {
+export default () => {
   const { state, dispatch } = useContext(Context);
 
   const handleClick = (evt) => (
@@ -54,5 +54,3 @@ const ThemeSettings = () => {
     </>
   )
 }
-
-export default ThemeSettings;

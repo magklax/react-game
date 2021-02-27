@@ -60,7 +60,7 @@ const RangeSlider = withStyles({
   }
 })(Slider);
 
-const VolumeRange = ({ type }) => {
+export default ({ type }) => {
   const { state, dispatch } = useContext(Context);
 
   const [volume, setVolume] = useState(.5);
@@ -93,6 +93,3 @@ const VolumeRange = ({ type }) => {
     </>
   )
 }
-
-export default VolumeRange;
-

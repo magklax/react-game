@@ -1,30 +1,18 @@
-import React, { useContext } from 'react';
-import { Context } from '../context/context';
 import colors from '../utils/colors';
-import { Overlay, Wrapper, Title, Subtitle, Button } from './styles';
+import { Overlay, Wrapper, Title, Subtitle } from './styles';
+import Button from './../Common/Button';
+
 const { eggblue, larioja } = colors;
 
 const Final = () => {
-  const { dispatch } = useContext(Context);
-
-  const handleClick = () => {
-    return dispatch({
-      type: 'gamerestart',
-    })
-  }
-
   return (
     <Overlay>
       <Wrapper>
         <Title>Congrats!</Title>
         <Subtitle>You got all heroes</Subtitle>
-        <Button color={eggblue} to="/">See results</Button>
+        <Button title="See results" color={eggblue} path="/stats" />
         <br />
-        <Button
-          onClick={handleClick}
-          color={larioja}
-          to="/"
-        >Play again</Button>
+        <Button title="Play again" color={larioja} path="/" />
       </Wrapper>
     </Overlay>
   )

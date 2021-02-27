@@ -2,81 +2,142 @@ import { heroes } from './../data/heroes';
 import { themes } from './../data/themes';
 import { balloons } from './../data/balloons';
 
-export const initialState = {
-  theme: themes[0].bg,
-  balloon: balloons[0].image,
-  volume: {
-    music: 0.5,
-    sound: 0.5
-  },
-  results: [],
-  rounds: heroes.length,
-  roundState: {
-    word: heroes[0].name,
-    cells: '',
-    image: heroes[0].image,
-    played: true,
-    paused: false,
-    finished: false,
+const ROUND_NUM = heroes.length;
+
+class State {
+  constructor() {
+    this.theme = themes[0].bg;
+    this.balloon = balloons[0].image;
+    this.volume = { music: 0.5, sound: 0.5 };
+    this.mode = 'light';
+    this.currRound = 0;
+    this.roundNumber = ROUND_NUM;
+    this.game = false;
+    this.total = [];
+    this.roundState = {
+      word: heroes[this.currRound].name,
+      image: heroes[this.currRound].image,
+      cells: '',
+      started: true,
+      finished: false,
+      played: true,
+      paused: false,
+      currChar: '',
+      pressedKey: {},
+    };
   }
 }
 
+export const initialState = new State();
+
 export const reducer = (state, action) => {
   switch (action.type) {
-    case 'gamerestart':
-      console.log(0);
-      return { ...initialState };
-    case 'roundstart':
-      console.log(1);
+    case 'gamestart':
+      console.log('gamestart');
       return {
-        ...state, roundState: {
-          word: heroes[state.results.length].name,
+        ...state,
+        game: true,
+        roundState: {
+          ...state.roundState,
+          word: heroes[state.currRound].name,
+          image: heroes[state.currRound].image,
           cells: '',
-          image: heroes[state.results.length].image,
+          started: true,
+          finished: false,
+          played: true,
+          paused: false,
+          currChar: '',
+          pressedKey: {},
+        },
+      };
+
+    case 'gameover':
+      console.log('gameover');
+      return {
+        ...initialState,
+        total: [...state.total, state.gameResults],
+      };
+
+    case 'roundstart':
+      console.log('roundstart');
+      return {
+        ...state,
+        roundState: {
+          ...state.roundState,
+          word: heroes[state.currRound].name,
+          image: heroes[state.currRound].image,
+          cells: '',
           started: true,
           finished: false,
           played: true,
           paused: false,
         }
       };
-    case 'match':
-      console.log(2);
-      return {
-        ...state, roundState: {
-          ...state.roundState, cells:
-            state.roundState.cells += action.payload
-        }
-      };
-    case 'addresult':
-      console.log(3);
-      return { ...state, results: [...state.results, action.payload] };
-    case 'pausetoggle':
-      console.log(4);
 
-      return { ...state, roundState: { ...state.roundState, paused: !state.roundState.paused } }
     case 'roundover':
-      console.log(5);
-
+      console.log('roundover');
       return {
-        ...state, roundState: {
-          word: '',
-          cells: '',
-          image: null,
-          started: true,
+        ...state,
+        currRound: state.currRound + 1,
+        roundState: {
+          ...state.roundState,
+          started: false,
           played: false,
           paused: false,
           finished: true,
         }
       };
+
+    case 'match':
+      return {
+        ...state, roundState: {
+          ...state.roundState,
+          cells: state.roundState.cells + action.payload,
+          currChar: '',
+        }
+      };
+
+    case 'pausetoggle':
+      console.log('pausetoggle');
+      return { ...state, roundState: { ...state.roundState, paused: !state.roundState.paused } };
+
+    case 'addresult':
+      console.log('addresult');
+      return {
+        ...state,
+        gameResults: { ...state.gameResults, ...action.payload }
+      }
+
     case 'music':
-      return { ...state, volume: { ...state.volume, music: action.payload } }
+      console.log('music');
+      return { ...state, volume: { ...state.volume, music: action.payload } };
+
     case 'sound':
-      return { ...state, volume: { ...state.volume, sound: action.payload } }
+      console.log('theme');
+      return { ...state, volume: { ...state.volume, sound: action.payload } };
+
     case 'theme':
-      return { ...state, theme: action.payload }
+      console.log('theme');
+      return { ...state, theme: action.payload };
+
     case 'balloon':
-      return { ...state, balloon: action.payload }
+      console.log('balloon');
+      return { ...state, balloon: action.payload };
+
+    case 'mode':
+      console.log('mode');
+      return { ...state, mode: action.payload };
+
+    case 'clickOnBallon':
+      console.log('clickOnBallon');
+      return { ...state, roundState: { ...state.roundState, currChar: action.payload } };
+
+    case 'pressKey':
+      console.log('pressKey');
+      return { ...state, roundState: { ...state.roundState, pressedKey: action.payload } };
+
     default:
+      console.log('default');
       return state;
   }
 }

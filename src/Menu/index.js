@@ -5,15 +5,15 @@ import BalloonSettings from './components/BalloonSettings';
 import Heroes from './components/Heroes';
 import { Overlay, Wrapper, Title, Grid, Item } from './styles';
 import { Context } from '../context/context';
-import { heroes } from '../data/heroes';
+import ModeSettings from './components/ModeSettings';
 
 const Menu = () => {
-  const { state } = useContext(Context);
+  const { roundNumber, currRound, roundState } = useContext(Context).state;
 
   return (
-    <Overlay isVisible={state.roundState.paused}>
+    <Overlay isVisible={roundState.paused}>
       <Wrapper>
-        <Title>Round {state.results.length}/{heroes.length}</Title>
+        <Title>Round {currRound}/{roundNumber}</Title>
         <Grid>
           <Item>
             {/* <Heroes /> */}
@@ -29,6 +29,9 @@ const Menu = () => {
           </Item>
           <Item>
             <BalloonSettings />
+          </Item>
+          <Item>
+            <ModeSettings />
           </Item>
         </Grid>
       </Wrapper>

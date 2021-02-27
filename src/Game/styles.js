@@ -28,8 +28,9 @@ export const Ballons = styled.div`
 `;
 
 export const GameArea = styled.div`
-flex-grow: 1;
-  margin: 0 3.5%;
+  flex-grow: 1;
+  max-width: 1000px;
+  margin: 0 auto;
   display: ${({ isVisible }) => isVisible ? 'none' : 'grid'};
   grid-template-columns: repeat(3, 1fr);
   align-items: center;

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
 import colors from '../utils/colors';
@@ -17,24 +16,6 @@ export const Subtitle = styled.h2`
 	font-size: 32px;
   font-weight: 900;
   -webkit-text-stroke: 3px ${white};
-`;
-
-export const Button = styled(Link)`
-  display: inline-block;
-  margin-bottom: 25px;
-  padding: 12px 30px;
-  color: ${({ color }) => color};
-  font-family: inherit;
-  font-size: 28px;
-  background-color: ${white};
-  border: 5px solid;
-  border-radius: 35px;
-  transition: 0.3s ease;
-
-  &:hover {
-    color: ${white};
-    background-color: ${({ color }) => color};
-  }
 `;
 
 export const Wrapper = styled.div`

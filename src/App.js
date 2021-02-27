@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, } from "react-router-dom";
 import { Context } from './context/context';
 import { reducer, initialState } from './context/reducer';
@@ -12,7 +12,24 @@ import Stats from './Stats';
 // const PATH = 'https://ssl.gstatic.com/dictionary/static/sounds/oxford/';
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, JSON.parse(localStorage.getItem('state')) || initialState);
+
+  useEffect(() => {
+    const getCircularReplacer = () => {
+      const seen = new WeakSet();
+      return (key, value) => {
+        if (typeof value === "object" && value !== null) {
+          if (seen.has(value)) {
+            return;
+          }
+          seen.add(value);
+        }
+        return value;
+      }
+    }
+
+    localStorage.setItem('state', JSON.stringify(state, getCircularReplacer()));
+  }, [state]);
 
   return (
     <Context.Provider value={{ state, dispatch }}>

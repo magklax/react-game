@@ -6,22 +6,22 @@ import marshall from './images/marshall.png';
 import ryder from './images/ryder.png';
 
 export const heroes = [
-  // {
-  //   name: 'marshall',
-  //   image: marshall,
-  // },
-  // {
-  //   name: 'george',
-  //   image: george,
-  // },
-  // {
-  //   name: 'blaze',
-  //   image: blaze,
-  // },
-  // {
-  //   name: 'magenta',
-  //   image: magenta,
-  // },
+  {
+    name: 'marshall',
+    image: marshall,
+  },
+  {
+    name: 'george',
+    image: george,
+  },
+  {
+    name: 'blaze',
+    image: blaze,
+  },
+  {
+    name: 'magenta',
+    image: magenta,
+  },
   {
     name: 'peppa',
     image: peppa,

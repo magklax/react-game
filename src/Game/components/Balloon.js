@@ -1,44 +1,54 @@
-import React, { useState, useContext } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useMemo, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import { DragDropContainer } from 'react-drag-drop-container';
 import colors from './../../utils/colors';
 import { Context } from '../../context/context';
+// import { confetti } from 'dom-confetti';
 
-const { white, strawberry } = colors;
+const { white, strawberry, larioja } = colors;
+
+// const getConfetti = (target) => {
+//   confetti(target, {
+//     spread: 360,
+//     startVelocity: 15,
+//     elementCount: 100
+//   })
+// }
 
 const bounce = keyframes`
   0% {
-    transform: translateY(-20px)
+    transform: translateY(-10px);
   }
   50% {
-    transform: translateY(20px)
+    transform: translateY(10px);
   }
   100% {
-    transform: translateY(-20px)
+    transform: translateY(-10px);
   }
 `;
 
 const getRandomDelay = (min, max) => {
   return `${Math.random() * (max - min) + min}s`;
 }
+
 const Letter = styled.span`
   position: absolute;
   left: 50%;
   top: 42%;
   transform: translate(-50%, -50%);
   color: ${white};
-  font-size: 42px;
+  font-size: ${({ isChosen }) => isChosen ? '56px' : '42px'};
   font-weight: 400;
-  -webkit-text-stroke: 4px ${strawberry};
+  -webkit-text-stroke: 4px ${({ isChosen }) => isChosen ? larioja : strawberry};
 `;
 
 const Balloon = styled.div`
   position: relative;
   display: flex;
+  visibility: ${({ isVisible }) => isVisible ? 'visible' : 'hidden'};
   justify-content: center;
   align-items: center;
   animation: ${bounce} ${() => getRandomDelay(3, 4)} linear infinite;
-  animation-play-state: ${({ isAnimated }) => isAnimated ? 'running' : 'paused'};
+  overflow: hidden;
   cursor: pointer;
 
   img {
@@ -47,40 +57,60 @@ const Balloon = styled.div`
   }
 `;
 
-export default ({ id, letter }) => {
-  const { state } = useContext(Context);
-  const [isAnimated, setIsAnimated] = useState(true);
-  const [isDropped, setIsDropped] = useState(false);
+export default ({ char, index }) => {
+  const { state, dispatch } = useContext(Context);
+  const { balloon } = state;
+  const { pressedKey, currChar, cells, finished } = state.roundState;
 
-  const onDrop = (evt) => {
-    setIsDropped(true);
-    evt.target.style.visibility = 'hidden';
+  const [isChosen, setIsChosen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  const ref = useRef(null);
+
+  const bombBalloon = () => {
+    // getConfetti(ref.current);
+    setIsVisible(false);
   }
 
-  const onDragStart = () => {
-    if (!isDropped) setIsAnimated(false);
+  useEffect(() => {
+    setIsVisible(true);
+    setIsChosen(false);
+  }, [finished]);
+
+  useEffect(() => {
+    ref.current === currChar ? setIsChosen(true) : setIsChosen(false);
+  }, [currChar]);
+
+  useEffect(() => {
+    if (isChosen) bombBalloon();
+  }, [cells]);
+
+  useEffect(() => {
+    if (pressedKey && char === pressedKey.char && index === cells.length) {
+      bombBalloon();
+    };
+  }, [pressedKey]);
+
+
+  const handleClick = () => {
+    console.log('ball');
+
+    return dispatch({
+      type: 'clickOnBallon',
+      payload: ref.current,
+    })
   }
 
-  const onDragEnd = () => {
-    if (!isDropped) setIsAnimated(true);
-  }
-
-  return (
-    <DragDropContainer
-      dragData={{ label: { letter }, id: { id } }}
-      dragElemOpacity={1}
-      targetKey={letter}
-      onDrop={onDrop}
-      onDragStart={onDragStart}
-      onDragEnd={onDragEnd}
+  return useMemo(() => (
+    <Balloon
+      isVisible={isVisible}
+      onClick={handleClick}
+      data-char={char}
+      data-index={index}
+      ref={ref}
     >
-      <Balloon
-        isAnimated={isAnimated}
-      >
-        <img src={state.balloon} draggable="false" />
-        <Letter>{letter}</Letter>
-      </Balloon>
-    </DragDropContainer>
-  )
+      <img src={state.balloon} draggable="false" />
+      <Letter isChosen={isChosen}>{char}</Letter>
+    </Balloon>
+  ), [isVisible, isChosen, balloon, finished]);
 }
-

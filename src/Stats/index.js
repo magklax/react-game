@@ -1,17 +1,18 @@
 import React from 'react';
-import colors from '../utils/colors';
-import Grid from './Components/Grid';
-
+import Table from './Components/Table';
+import Button from './../Common/Button';
 import { Overlay, Wrapper, Title } from './styles';
+import colors from '../utils/colors';
 
-const { eggblue, larioja } = colors;
+const { larioja } = colors;
 
 const Stats = () => {
   return (
     <Overlay>
       <Wrapper>
         <Title>Statistics</Title>
-        <Grid />
+        <Table />
+        <Button title="Play again" color={larioja} path="/" />
       </Wrapper>
     </Overlay>
   )

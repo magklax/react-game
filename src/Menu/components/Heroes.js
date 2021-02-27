@@ -24,13 +24,13 @@ const Title = styled.h3`
   color: ${gold};
 `;
 
-const Heroes = () => {
-  const { state } = useContext(Context);
+export default () => {
+  const { currNumber } = useContext(Context).state;
 
   return (
     <>
       {heroes.map((hero, index) => {
-        if (state.results.length > index) {
+        if (currNumber > index) {
           return (
             <Item key={`hero-${hero.name}`}>
               <Frame>
@@ -53,5 +53,3 @@ const Heroes = () => {
     </>
   )
 }
-
-export default Heroes;

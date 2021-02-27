@@ -13,6 +13,8 @@ export const Title = styled.h2`
 
 export const Wrapper = styled.div`
   position: absolute;
+  max-width: 600px;
+  width: 100%;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);

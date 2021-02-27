@@ -27,10 +27,8 @@ const Item = styled.li`
   cursor: pointer;
 `;
 
-const BalloonSettings = () => {
+export default () => {
   const { state, dispatch } = useContext(Context);
-
-  console.log(state);
 
   const handleClick = (evt) => (
     dispatch({
@@ -38,7 +36,6 @@ const BalloonSettings = () => {
       payload: evt.target.dataset.bg
     })
   )
-
 
   return (
     <>
@@ -57,5 +54,3 @@ const BalloonSettings = () => {
     </>
   )
 }
-
-export default BalloonSettings;
