@@ -21,7 +21,7 @@ const Item = styled.li`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 90px;
+  width: 100%;
   padding: 5px;
   border: 5px solid ${({ isActive }) => isActive ? larioja : white};
   border-radius: 10px;

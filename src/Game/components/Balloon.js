@@ -92,14 +92,10 @@ export default ({ char, index }) => {
   }, [pressedKey]);
 
 
-  const handleClick = () => {
-    console.log('ball');
-
-    return dispatch({
-      type: 'clickOnBallon',
-      payload: ref.current,
-    })
-  }
+  const handleClick = () => dispatch({
+    type: 'clickOnBallon',
+    payload: ref.current,
+  });
 
   return useMemo(() => (
     <Balloon

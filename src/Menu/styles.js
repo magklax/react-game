@@ -10,15 +10,6 @@ export const Item = styled.li`
   background-color: ${white};
   border-radius: 10px;
   text-align: center;
-
-  &:nth-child(1) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 20px;
-    justify-content: space-between;
-    justify-items: center;
-    grid-column: 1/3;
-  }
 `;
 
 export const Grid = styled.ul`

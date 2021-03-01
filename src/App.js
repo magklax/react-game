@@ -31,6 +31,8 @@ const App = () => {
     localStorage.setItem('state', JSON.stringify(state, getCircularReplacer()));
   }, [state]);
 
+  useEffect(() => state.roundState.paused = false, []);
+
   return (
     <Context.Provider value={{ state, dispatch }}>
       <BrowserRouter>

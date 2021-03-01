@@ -6,10 +6,11 @@ import colors from '../../utils/colors';
 
 import captain from './../images/captain.svg';
 
-const { gold } = colors;
+const { torchred } = colors;
 
 const Item = styled.div`
   width: 100%;
+  text-align: center;
 `;
 
 const Frame = styled.div`
@@ -21,22 +22,30 @@ const Frame = styled.div`
 
 const Title = styled.h3`
   font-size: 16px;
-  color: ${gold};
+  color: ${({ color }) => color};
+`;
+
+const Wrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    justify-content: space-between;
+    grid-column: 1/3;
 `;
 
 export default () => {
-  const { currNumber } = useContext(Context).state;
+  const { currRound } = useContext(Context).state;
 
   return (
-    <>
+    <Wrapper>
       {heroes.map((hero, index) => {
-        if (currNumber > index) {
+        if (currRound > index) {
           return (
             <Item key={`hero-${hero.name}`}>
               <Frame>
                 <img src={hero.image} alt={hero.name} />
               </Frame>
-              <Title>{hero.name}</Title>
+              <Title color={torchred}>{hero.name}</Title>
             </Item>
           )
         } else {
@@ -50,6 +59,6 @@ export default () => {
           )
         }
       })}
-    </>
+    </Wrapper>
   )
 }

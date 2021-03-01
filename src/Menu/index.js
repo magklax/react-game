@@ -7,8 +7,10 @@ import { Overlay, Wrapper, Title, Grid, Item } from './styles';
 import { Context } from '../context/context';
 import ModeSettings from './components/ModeSettings';
 
-const Menu = () => {
-  const { roundNumber, currRound, roundState } = useContext(Context).state;
+export default () => {
+  const { state } = useContext(Context);
+  const { roundNumber, currRound, roundState } = state
+  console.log(state);
 
   return (
     <Overlay isVisible={roundState.paused}>
@@ -16,7 +18,10 @@ const Menu = () => {
         <Title>Round {currRound}/{roundNumber}</Title>
         <Grid>
           <Item>
-            {/* <Heroes /> */}
+            <Heroes />
+          </Item>
+          <Item>
+            <ModeSettings />
           </Item>
           <Item>
             <VolumeRange type="music" />
@@ -30,13 +35,8 @@ const Menu = () => {
           <Item>
             <BalloonSettings />
           </Item>
-          <Item>
-            <ModeSettings />
-          </Item>
         </Grid>
       </Wrapper>
-    </Overlay>
+    </Overlay >
   )
 }
-
-export default Menu;

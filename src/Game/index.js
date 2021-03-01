@@ -52,8 +52,6 @@ const Game = () => {
     };
   }, []);
 
-  console.log(state);
-
   useEffect(() => {
     if (word.length && word.length === cells.length) {
       return dispatch({
