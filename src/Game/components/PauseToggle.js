@@ -1,49 +1,43 @@
-import React, { useState, useContext } from 'react';
-import styled from 'styled-components';
+import React, { useState, useContext, useEffect } from 'react';
+import { RoundButton } from './../../Common/RoundButton';
 import { FaPause, FaPlay } from "react-icons/fa";
 import { Context } from './../../context/context';
-import colors from './../../utils/colors';
 
-const { white, wisteria } = colors;
-
-const Button = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin-right: 25px;
-  color: ${wisteria};
-  font-size: 28px;
-  background-color: ${white};
-  border: 5px solid ${wisteria};
-  border-radius: 100%;
-  z-index: 9;
-
-  &:focus {
-    outline: none;
-  }
-`;
 
 export default () => {
   const { dispatch } = useContext(Context);
   const [icon, setIcon] = useState(true);
 
-  const onClick = (evt) => {
-    evt.preventDefault();
-
-    setIcon(!icon);
+  const togglePause = () => {
+    setIcon(prev => !prev);
 
     return dispatch({
       type: 'pausetoggle',
     })
   }
+
+  const handleKeyPress = (evt) => {
+    if (evt.code === 'Escape') {
+      evt.preventDefault();
+      togglePause();
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress)
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
     <>
-      <Button
-        onClick={onClick}
-        type="button" >
+      <RoundButton
+        onClick={togglePause}
+        to="/game"
+      >
         {icon ? <FaPause /> : <FaPlay />}
-      </Button>
+      </RoundButton>
     </>
   )
 }

@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -6,15 +7,15 @@ const { white } = colors;
 
 const Button = styled(Link)`
   display: inline-block;
-  margin-bottom: 25px;
-  padding: 12px 30px;
+  margin: 0 10px 20px;
+  padding: 12px 20px;
   color: ${({ color }) => color};
   font-family: inherit;
-  font-size: 28px;
+  font-size: 26px;
   background-color: ${white};
   border: 5px solid;
   border-radius: 35px;
-  transition: 0.3s ease;
+  transition: all 0.6s ease;
 
   &:hover {
     color: ${white};
@@ -22,6 +23,12 @@ const Button = styled(Link)`
   }
 `;
 
-export default ({ color, path, title }) => (
-  <Button color={color} to={path}>{title}</Button>
-)
+export default ({ color, path, title, onClick }) => {
+  const ref = useRef(null);
+
+  useEffect(() => ref.current.focus(), []);
+
+  return (
+    <Button color={color} to={path} ref={ref} onClick={onClick}>{title}</Button>
+  )
+}

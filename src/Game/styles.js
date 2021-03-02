@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import colors from './../utils/colors';
 
-const { ziggurat } = colors;
+const { ziggurat, coral, white } = colors;
 
 export const Header = styled.div`
   width: 100%;
@@ -35,6 +35,13 @@ export const GameArea = styled.div`
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   padding-bottom: 50px;
+`;
+
+export const Greeting = styled.p`
+  margin-left: auto;
+  color: ${white};
+  font-size: 42px;
+  -webkit-text-stroke: 4px ${coral};
 `;
 
 export const Wrapper = styled.div`

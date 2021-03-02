@@ -6,6 +6,7 @@ const ROUND_NUM = heroes.length;
 
 class State {
   constructor() {
+    this.username = '';
     this.theme = themes[0].bg;
     this.balloon = balloons[0].image;
     this.volume = { music: 0.5, sound: 0.5 };
@@ -15,6 +16,7 @@ class State {
     this.game = false;
     this.total = [];
     this.roundState = {
+      auto: false,
       word: heroes[this.currRound].name,
       image: heroes[this.currRound].image,
       cells: '',
@@ -32,6 +34,29 @@ export const initialState = new State();
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case 'username':
+      console.log('username');
+      return {
+        ...state,
+        username: action.payload,
+      };
+    case 'gameload':
+      console.log('gameload');
+      return {
+        ...state,
+        game: false,
+        roundState: {
+          ...state.roundState,
+          auto: false,
+          cells: '',
+          started: true,
+          finished: false,
+          played: true,
+          paused: false,
+          currChar: '',
+          pressedKey: {},
+        },
+      };
     case 'gamestart':
       console.log('gamestart');
       return {
@@ -71,6 +96,7 @@ export const reducer = (state, action) => {
           finished: false,
           played: true,
           paused: false,
+          auto: false,
         }
       };
 
@@ -100,6 +126,10 @@ export const reducer = (state, action) => {
     case 'pausetoggle':
       console.log('pausetoggle');
       return { ...state, roundState: { ...state.roundState, paused: !state.roundState.paused } };
+
+    case 'autoplay':
+      console.log('autoplay');
+      return { ...state, roundState: { ...state.roundState, auto: action.payload } };
 
     case 'addresult':
       console.log('addresult');

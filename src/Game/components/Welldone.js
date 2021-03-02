@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import colors from './../../utils/colors';
 import { Context } from '../../context/context';
 import { FaPlay } from "react-icons/fa";
+import { Overlay } from './../../Common/Overlay';
 
 const { torchred, eggblue, white } = colors;
 
@@ -33,35 +34,40 @@ const Button = styled(Link)`
 
 const Wrapper = styled.div`
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) ${({ isVisible }) => isVisible ? 'scale(1)' : 'scale(0)'};
+  transform: translate(-50%, -50%);
   text-align: center;
-  transition: 0.3s;
 `;
 
 export default ({ isVisible }) => {
   const [isOver, setIsOver] = useState(false);
   const { state, dispatch } = useContext(Context);
   const { roundNumber, currRound } = state;
+  const ref = useRef(null);
 
   useEffect(() => {
     if (roundNumber <= currRound) setIsOver(true);
   }, [currRound]);
+
+  useEffect(() => ref.current.focus(), [isVisible]);
 
   const onClick = () => {
     (!isOver) ? dispatch({ type: 'roundstart' }) : dispatch({ type: 'gameover' });
   }
 
   return (
-    <Wrapper isVisible={isVisible}>
-      <Message>Well Done!</Message>
-      <Button
-        to={isOver ? '/final' : '/game'}
-        onClick={onClick}
-        type='button'
-      ><FaPlay />
-      </Button >
-    </Wrapper>
+    <Overlay isVisible={isVisible} zIndex={10} >
+      <Wrapper>
+        <Message>Well Done!</Message>
+        <Button
+          to={isOver ? '/final' : '/game'}
+          onClick={onClick}
+          type='button'
+          ref={ref}
+        ><FaPlay />
+        </Button >
+      </Wrapper>
+    </Overlay>
   )
 }

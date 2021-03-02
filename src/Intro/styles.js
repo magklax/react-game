@@ -1,5 +1,4 @@
 import styled, { keyframes } from 'styled-components';
-import { Link } from "react-router-dom";
 import colors from './../utils/colors';
 
 import bg from './images/bg.svg';
@@ -8,7 +7,7 @@ import rays from './images/sun-rays.svg';
 import cloud from './images/cloud.svg';
 import rainbow from './images/rainbow.svg';
 
-const { torchred, eggblue, wisteria, white } = colors;
+const { torchred } = colors;
 
 const translate = keyframes`
   0% {
@@ -31,25 +30,9 @@ const rotate = keyframes`
 export const Title = styled.div`
   margin-bottom: 30px;
   white-space: nowrap;
-  font-size: 78px;
+  font-size: 72px;
   color: ${torchred};
   -webkit-text-stroke: 3px white;
-`;
-
-export const Button = styled(Link)`
-  display: inline-block;
-  padding: 12px 30px;
-  color: ${wisteria};
-  font-family: inherit;
-  font-size: 28px;
-  background-color: ${white};
-  border: 5px solid;
-  border-radius: 35px;
-  transition: 0.3s ease;
-
-  &:hover {
-    color: ${eggblue};
-  }
 `;
 
 export const Sun = styled.div`
@@ -77,8 +60,8 @@ export const Sun = styled.div`
 export const Info = styled.div`
   position: absolute;
   left: 50%;
-  bottom: 20%;
-  transform: translateX(-50%);
+  top: 60%;
+  transform: translate(-50%, -50%);
   text-align: center;
 `;
 
@@ -110,6 +93,10 @@ export const Wrapper = styled.div`
   max-width: 1100px;
   height: 100%;
   margin: 0 auto;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: ${({ isVisible }) => isVisible ? 'none' : 'block'};
 `;
 
 export const Overlay = styled.div`

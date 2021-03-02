@@ -15,7 +15,7 @@ const Timer = styled.div`
 
 export default () => {
   const { state, dispatch } = useContext(Context);
-  const { played, paused, finished, word } = state.roundState;
+  const { played, paused, finished, word, auto } = state.roundState;
 
   const [minute, setMinute] = useState('00');
   const [second, setSecond] = useState('00');
@@ -25,7 +25,7 @@ export default () => {
   useEffect(() => {
     let interval;
 
-    if (played && !paused && state.game) {
+    if (played && !paused && state.game && !auto) {
       interval = setInterval(() => {
         const minCounter = Math.floor(counter / 60);
         const secCounter = counter % 60;
@@ -48,10 +48,12 @@ export default () => {
       setSecond(prev => prev = '00');
       setCounter(0);
 
+      const result = auto ? 'autoplay' : `${minute}:${second}`
+
       return dispatch({
         type: 'addresult',
         payload: {
-          [word]: `${minute}:${second}`
+          [word]: result,
         },
       })
     }
@@ -59,7 +61,7 @@ export default () => {
 
   return (
     <>
-      <Timer isVisible={played}>
+      <Timer isVisible={played && !auto}>
         <span>{minute}</span>:<span>{second}</span>
       </Timer>
     </>

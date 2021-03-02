@@ -18,12 +18,14 @@ const Letter = styled.div`
   font-size: 54px;
   font-weight: 400;
   -webkit-text-stroke: 3px #fff;
+  transition: opacity 0.5s ease;
 `;
 
 const Slot = styled.div`
   height: 50px;
   background-color: ${({ color }) => color};
   border: 5px solid ${({ isChosen, color }) => isChosen ? color : white};
+  transition: border 0.5s ease;
   border-radius: 15px;
 `;
 
@@ -31,7 +33,6 @@ const Cell = styled.div`
   display: flex;
   flex-direction: column;
   transform-origin: center;
-  transition: 0.5s ease;
   cursor: pointer;
 `;
 

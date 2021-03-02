@@ -2,17 +2,17 @@ import React, { useCallback, useContext, useEffect, useRef, useMemo, useState } 
 import styled, { keyframes } from 'styled-components';
 import colors from './../../utils/colors';
 import { Context } from '../../context/context';
-// import { confetti } from 'dom-confetti';
+import { confetti } from 'dom-confetti';
 
 const { white, strawberry, larioja } = colors;
 
-// const getConfetti = (target) => {
-//   confetti(target, {
-//     spread: 360,
-//     startVelocity: 15,
-//     elementCount: 100
-//   })
-// }
+const getConfetti = (target) => {
+  confetti(target, {
+    spread: 360,
+    startVelocity: 15,
+    elementCount: 100
+  })
+}
 
 const bounce = keyframes`
   0% {
@@ -68,7 +68,7 @@ export default ({ char, index }) => {
   const ref = useRef(null);
 
   const bombBalloon = () => {
-    // getConfetti(ref.current);
+    getConfetti(ref.current);
     setIsVisible(false);
   }
 

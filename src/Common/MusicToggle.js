@@ -1,6 +1,4 @@
-import React, { useContext } from 'react';
-import useSound from 'use-sound';
-
+import React, { useContext, useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaDrum } from "react-icons/fa";
 import { Context } from '../context/context';
@@ -25,47 +23,68 @@ const beat = keyframes`
 
 const Button = styled.button`
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 3.3%;
+  top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  color: ${({ isPlaying }) => isPlaying ? torchred : wisteria};
-  font-size: 28px;
+  color: ${({ playing }) => playing ? torchred : wisteria};
+  font-size: 24px;
   background-color: ${white};
   border: 5px solid;
   border-radius: 100%;
   z-index: 9;
   animation: ${beat} 1.2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-  animation-play-state: ${({ isPlaying }) => isPlaying ? 'running' : 'paused'};
+  animation-play-state: ${({ playing }) => playing ? 'running' : 'paused'};
 
   &:focus {
     outline: none;
   }
 `;
 
+const useAudio = (url, volume) => {
+  const [audio] = useState(new Audio(url));
+  const [playing, setPlaying] = useState(false);
+  const toggle = () => setPlaying(prev => !prev);
+
+  useEffect(() => {
+    audio.volume = volume;
+    playing ? audio.play() : audio.pause();
+  }, [playing, volume]);
+
+  useEffect(() => {
+    audio.addEventListener('ended', () => setPlaying(false));
+    return () => {
+      audio.removeEventListener('ended', () => setPlaying(false));
+    };
+  }, []);
+
+  return [playing, toggle];
+};
+
 const MusicToggle = () => {
-  const { state, dispatch } = useContext(Context);
+  const { state } = useContext(Context);
 
-  const [play, { pause, isPlaying }] = useSound(url, {
-    volume: state.volume.music,
-  });
+  const [playing, toggle] = useAudio(url, state.volume.music);
 
-  const handleClick = () => {
-    isPlaying ? pause() : play();
-  }
+  useEffect(() => {
+    const handler = (evt) => {
+      if (evt.key === 'F2') toggle();
+    }
+
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [])
 
   return (
-    <>
-      <Button
-        type="button"
-        onClick={handleClick}
-        isPlaying={isPlaying}
-      >
-        <FaDrum />
-      </Button>
-    </>
+    <Button
+      type="button"
+      onClick={toggle}
+      playing={playing}
+    >
+      <FaDrum />
+    </Button >
   )
 }
 

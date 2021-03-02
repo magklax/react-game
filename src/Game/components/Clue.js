@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Context } from '../../context/context';
 import colors from './../../utils/colors';
+import { Overlay } from './../../Common/Overlay';
 
 const { coral, white } = colors;
 
@@ -20,19 +21,17 @@ const Button = styled.button`
 `;
 
 const Modal = styled.div`
-  position: fixed;
+  position: absolute;
   width: 400px;
   padding: 30px 50px;
   left: 50%;
-  top: 40%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   font-size: 24px;
   line-height: 1.5;
   text-align: center;
-  transition: 0.3s ease;
-  transform: translate(-50%, -50%) ${({ isVisible }) => isVisible ? 'scale(1)' : 'scale(0)'};
   background-color: ${white};
   border-radius: 15px;
-  z-index: 10;
 `;
 
 export default () => {
@@ -58,23 +57,25 @@ export default () => {
 
   useEffect(() => {
     if (!game) {
-      window.addEventListener('keyup', handleKeyPress);
+      window.addEventListener('keydown', handleKeyPress);
       window.addEventListener('click', handleKeyPress);
 
       return () => {
-        window.removeEventListener('keyup', handleKeyPress);
+        window.removeEventListener('keydown', handleKeyPress);
         window.removeEventListener('click', handleKeyPress);
       };
     }
   }, [game]);
 
   return (
-    <Modal isVisible={isVisible} onClick={(evt) => evt.stopPropagation()}>
-      <Message>Spell the word by dragging the balloon into the place at the bottom of screen</Message>
-      <Button
-        tabIndex="0"
-        onClick={closeModal}
-      >ok</Button>
-    </Modal >
+    <Overlay isVisible={isVisible} zIndex={10} >
+      <Modal onClick={(evt) => evt.stopPropagation()}>
+        <Message>Spell the word by clicking the balloon and the matched place at the bottom of screen or typing letters in correct order</Message>
+        <Button
+          tabIndex="0"
+          onClick={closeModal}
+        >ok</Button>
+      </Modal >
+    </Overlay>
   )
 }

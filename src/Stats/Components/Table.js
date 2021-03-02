@@ -5,11 +5,11 @@ import colors from '../../utils/colors';
 import { heroes } from '../../data/heroes';
 import { Context } from '../../context/context';
 
-const { torchred, white } = colors;
+const { torchred } = colors;
 
 
 const TD = styled.th`
-  padding: 10px 0;
+  padding: 10px 20px;
 `;
 
 const TR = styled.tr`
@@ -19,7 +19,7 @@ const TR = styled.tr`
 `;
 
 const Th = styled.th`
-  padding: 10px 0;
+  padding: 10px 20px;
   color: ${torchred};
 `;
 
@@ -27,6 +27,7 @@ const Table = styled.table`
   border-collapse: collapse;
   width: 100%;
   margin-bottom: 25px;
+  padding: 0 50px;
   font-size: 18px;
   background-color: white;
 `;

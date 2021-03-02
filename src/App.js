@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route, } from "react-router-dom";
 import { Context } from './context/context';
 import { reducer, initialState } from './context/reducer';
 import Intro from './Intro';
+import SignUp from './SignUp';
+import SignIn from './SignIn';
 import Menu from './Menu';
 import Game from './Game';
 import MisicToggle from './Common/MusicToggle';
@@ -31,7 +33,9 @@ const App = () => {
     localStorage.setItem('state', JSON.stringify(state, getCircularReplacer()));
   }, [state]);
 
-  useEffect(() => state.roundState.paused = false, []);
+  useEffect(() => dispatch({
+    type: 'gameload',
+  }), []);
 
   return (
     <Context.Provider value={{ state, dispatch }}>
@@ -40,6 +44,14 @@ const App = () => {
         <Switch>
           <Route exact path="/">
             <Intro />
+          </Route>
+
+          <Route exact path="/signup">
+            <SignUp />
+          </Route>
+
+          <Route exact path="/signin">
+            <SignIn />
           </Route>
 
           <Route path="/game">

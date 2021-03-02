@@ -25,15 +25,3 @@ export const Wrapper = styled.div`
   transform: translate(-50%, -50%);
   text-align: center;
 `;
-
-export const Overlay = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: ${ziggurat};
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-`;
