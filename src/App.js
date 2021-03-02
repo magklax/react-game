@@ -54,16 +54,16 @@ const App = () => {
             <SignIn />
           </Route>
 
-          <Route path="/game">
+          <Route exact path="/game">
             <Game />
             <Menu />
           </Route>
 
-          <Route path="/final">
+          <Route exact path="/final">
             <Final />
           </Route>
 
-          <Route path="/stats">
+          <Route exact path="/stats">
             <Stats />
           </Route>
 
