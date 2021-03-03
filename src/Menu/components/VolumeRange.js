@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 
 const RangeSlider = withStyles({
   root: {
-    width: 250,
+    width: 210,
     height: 8,
   },
   track: {
@@ -62,7 +62,7 @@ const RangeSlider = withStyles({
 export default ({ type }) => {
   const { state, dispatch } = useContext(Context);
 
-  const [volume, setVolume] = useState(.5);
+  const [volume, setVolume] = useState(state.volume[type]);
 
   const handleChange = (_, value) => {
     setVolume(value);

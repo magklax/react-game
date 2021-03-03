@@ -11,7 +11,7 @@ import Hotkeys from './components/Hotkeys';
 
 export default () => {
   const { state } = useContext(Context);
-  const { roundNumber, currRound, roundState } = state
+  const { roundNumber, currRound, roundState } = state;
 
   return (
     <Overlay visible={roundState.paused} zIndex={8}>
