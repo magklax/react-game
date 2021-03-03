@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { Context } from './../context/context';
 import { useHistory } from "react-router-dom";
-
+import { backendURL } from './../data/backend';
 import styled from 'styled-components';
 import colors from '../utils/colors';
 
@@ -41,8 +41,6 @@ const Submit = styled.button`
   border: none;
   border-radius: 15px;
 `;
-
-const backendURL = 'https://pop-and-spell.herokuapp.com';
 
 export default ({ route }) => {
   const { dispatch } = useContext(Context);
@@ -87,7 +85,7 @@ export default ({ route }) => {
           },
 
           body: JSON.stringify({
-            email: name,
+            username: name,
             password: password,
           }),
 
@@ -100,14 +98,9 @@ export default ({ route }) => {
                 type: 'username',
                 payload: name,
               });
-
-            } else {
-              console.log();
             }
           })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
+
         break;
 
       case 'signIn':
@@ -118,7 +111,7 @@ export default ({ route }) => {
           },
 
           body: JSON.stringify({
-            email: name,
+            username: name,
             password: password,
           }),
 

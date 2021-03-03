@@ -37,6 +37,8 @@ const App = () => {
     type: 'gameload',
   }), []);
 
+  console.log(state);
+
   return (
     <Context.Provider value={{ state, dispatch }}>
       <BrowserRouter>

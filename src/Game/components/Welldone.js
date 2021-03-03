@@ -6,6 +6,8 @@ import { Context } from '../../context/context';
 import { FaPlay } from "react-icons/fa";
 import { Overlay } from './../../Common/Overlay';
 
+import { backendURL } from './../../data/backend';
+
 const { torchred, eggblue, white } = colors;
 
 const Message = styled.p`
@@ -43,7 +45,7 @@ const Wrapper = styled.div`
 export default ({ isVisible }) => {
   const [isOver, setIsOver] = useState(false);
   const { state, dispatch } = useContext(Context);
-  const { roundNumber, currRound } = state;
+  const { roundNumber, currRound, username, gameResults } = state;
   const ref = useRef(null);
 
   useEffect(() => {
@@ -53,7 +55,23 @@ export default ({ isVisible }) => {
   useEffect(() => ref.current.focus(), [isVisible]);
 
   const onClick = () => {
-    (!isOver) ? dispatch({ type: 'roundstart' }) : dispatch({ type: 'gameover' });
+    if (isOver) {
+      fetch(`${backendURL}/save`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+        body: JSON.stringify({
+          username: username,
+          results: gameResults,
+        }),
+      })
+
+      return dispatch({ type: 'gameover' });
+    }
+
+    return dispatch({ type: 'roundstart' })
   }
 
   return (

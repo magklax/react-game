@@ -11,6 +11,12 @@ export const Title = styled.h2`
   -webkit-text-stroke: 3px ${white};
 `;
 
+export const Message = styled.p`
+  font-size: 24px;
+  margin-bottom: 20px;
+  padding: 10px 0;
+`;
+
 export const Wrapper = styled.div`
   position: absolute;
   width: 900px;

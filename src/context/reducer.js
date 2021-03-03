@@ -80,6 +80,8 @@ export const reducer = (state, action) => {
       console.log('gameover');
       return {
         ...initialState,
+        gameResults: state.gameResults,
+        username: state.username,
         total: [...state.total, state.gameResults],
       };
 
