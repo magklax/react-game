@@ -98,6 +98,8 @@ export default ({ route }) => {
                 type: 'username',
                 payload: name,
               });
+            } else {
+              alert('Username is already exist!');
             }
           })
 
