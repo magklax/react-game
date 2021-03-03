@@ -1,16 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FaHome } from 'react-icons/fa';
 import { RoundButton } from './RoundButton';
+import { Context } from './../context/context';
 
 export default () => {
   const history = useHistory();
 
-  const handleKeyPress = (evt) => {
+  const { dispatch } = useContext(Context);
 
+  const startNewGame = () => {
+    dispatch({
+      type: 'newgame'
+    })
+  }
+
+  const handleKeyPress = (evt) => {
     if (evt.code === 'F11') {
       evt.preventDefault();
-
+      startNewGame();
       history.push('/');
     };
   }
@@ -24,7 +32,7 @@ export default () => {
 
   return (
     <>
-      <RoundButton to="/" zindex={9}>
+      <RoundButton to="/" zindex={9} onClick={startNewGame}>
         <FaHome />
       </RoundButton>
     </>

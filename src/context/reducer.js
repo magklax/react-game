@@ -73,6 +73,10 @@ export const reducer = (state, action) => {
         gameResults: state.gameResults,
         username: state.username,
       };
+    case 'newgame':
+      return {
+        ...initialState,
+      };
 
     case 'roundstart':
       return {
