@@ -22,8 +22,6 @@ const Game = () => {
   const { theme, roundState, mode, username, currRound } = state;
   const { word, cells, image, finished } = roundState;
 
-  console.log(state);
-
   const balloonArr = useMemo(() => {
     if (finished) {
       history.push('/final');
