@@ -10,6 +10,7 @@ import Game from './Game';
 import MisicToggle from './Common/MusicToggle';
 import Final from './Final';
 import Stats from './Stats';
+import Footer from './Common/Footer';
 
 const App = () => {
   const [state, dispatch] = useReducer(reducer, JSON.parse(localStorage.getItem('state')) || initialState);
@@ -67,6 +68,8 @@ const App = () => {
 
         </Switch>
       </BrowserRouter>
+
+      <Footer />
     </Context.Provider>
   );
 }
