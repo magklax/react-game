@@ -4,6 +4,7 @@ import george from './images/george.png';
 import peppa from './images/peppa.png';
 import marshall from './images/marshall.png';
 import ryder from './images/ryder.png';
+import { shuffleArray } from './../utils/utils';
 
 export const heroes = [
   // {
@@ -31,3 +32,11 @@ export const heroes = [
     image: ryder,
   },
 ]
+
+const shuffledHeroes = heroes.map((hero) => {
+  return shuffleArray(hero.name.split('').map((char, index) => ({ char, index })));
+});
+
+if (!localStorage.getItem('shuffledHeroes')) {
+  localStorage.setItem('shuffledHeroes', JSON.stringify(shuffledHeroes));
+}

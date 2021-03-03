@@ -1,3 +1,3 @@
-const backendURL = 'http://localhost:8000';
+const backendURL = 'https://pop-and-spell.herokuapp.com/';
 
 export { backendURL };

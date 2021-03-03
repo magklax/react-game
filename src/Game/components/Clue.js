@@ -39,7 +39,7 @@ export default () => {
 
   const { game } = state;
 
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(!game);
 
   const closeModal = () => {
     setIsVisible(false);

@@ -91,6 +91,11 @@ export default ({ char, index }) => {
     };
   }, [pressedKey]);
 
+  useEffect(() => {
+    if (cells.length && char === cells[index]) {
+      setIsVisible(false);
+    }
+  }, []);
 
   const handleClick = () => dispatch({
     type: 'clickOnBallon',

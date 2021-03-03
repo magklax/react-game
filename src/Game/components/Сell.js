@@ -76,6 +76,13 @@ export default ({ char, color, index }) => {
   }
 
   useEffect(() => {
+    if (cells.length && char === cells[index]) {
+      setIsMatched(true);
+      setIsChosen(true);
+    }
+  }, []);
+
+  useEffect(() => {
     if (pressedKey && pressedKey.char && index === cells.length) {
       playSound(char === pressedKey.char);
     }

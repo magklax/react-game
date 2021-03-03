@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext, useMemo } from 'react';
 import { Context } from '../context/context';
-import { shuffleArray } from '../utils/utils';
 import Loader from './../Common/Loader';
 import Balloon from "./components/Balloon";
 import Cell from "./components/Сell";
@@ -19,10 +18,10 @@ const cellsColors = [strawberry, gold, larioja, eggblue, wisteria];
 
 const Game = () => {
   const { state, dispatch } = useContext(Context);
-  const { theme, roundState, mode, username } = state;
+  const { theme, roundState, mode, username, currRound } = state;
   const { word, cells, image, finished } = roundState;
 
-  const ballonArr = useMemo(() => shuffleArray(word.split('').map((char, index) => ({ char, index }))), [word]);
+  const balloonArr = useMemo(() => JSON.parse(localStorage.getItem('shuffledHeroes'))[currRound], [word]);
   const cellArr = useMemo(() => word.split(''), [word]);
   const number = useMemo(() => word.length, [word]);
   const colorArr = useMemo(() => {
@@ -82,7 +81,7 @@ const Game = () => {
 
         <GameArea isVisible={finished} >
           <Ballons>
-            {ballonArr.map((balloon, index) => {
+            {balloonArr.map((balloon, index) => {
               if (index < number / 2) {
                 return <Balloon
                   key={`baloon-${index}`}
@@ -96,7 +95,7 @@ const Game = () => {
           <Question bg={image} mode={mode} />
 
           <Ballons>
-            {ballonArr.map((balloon, index) => {
+            {balloonArr.map((balloon, index) => {
               if (index >= number / 2) {
                 return <Balloon
                   key={`baloon-${index}`}

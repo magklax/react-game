@@ -5,7 +5,7 @@ import { FaForward } from "react-icons/fa";
 
 export default () => {
   const { state, dispatch } = useContext(Context);
-  const { word, auto } = state.roundState;
+  const { word, auto, cells } = state.roundState;
 
   const autoPressKey = (element) => {
     return dispatch({
@@ -14,16 +14,11 @@ export default () => {
     })
   }
 
-  useEffect(() => dispatch({
-    type: 'autoplay',
-    payload: false,
-  }), [])
-
   useEffect(() => {
     let interval;
 
     if (auto) {
-      let count = 0;
+      let count = cells.length;
 
       interval = setInterval(() => {
         autoPressKey(word.split('')[count]);
@@ -40,7 +35,6 @@ export default () => {
   const autoplay = () => {
     dispatch({
       type: 'autoplay',
-      payload: true,
     });
   }
 

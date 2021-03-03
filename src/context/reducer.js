@@ -44,13 +44,9 @@ export const reducer = (state, action) => {
       console.log('gameload');
       return {
         ...state,
-        game: false,
         roundState: {
           ...state.roundState,
           auto: false,
-          cells: '',
-          started: true,
-          finished: false,
           played: true,
           paused: false,
           currChar: '',
@@ -75,7 +71,6 @@ export const reducer = (state, action) => {
           pressedKey: {},
         },
       };
-
     case 'gameover':
       console.log('gameover');
       return {
@@ -131,7 +126,7 @@ export const reducer = (state, action) => {
 
     case 'autoplay':
       console.log('autoplay');
-      return { ...state, roundState: { ...state.roundState, auto: action.payload } };
+      return { ...state, roundState: { ...state.roundState, auto: true, currChar: '' } };
 
     case 'addresult':
       console.log('addresult');
