@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import UserStats from './Components/UserStats';
 import Button from './../Common/Button';
-import { Overlay, Wrapper, Title, Message } from './styles';
-import colors from '../utils/colors';
-import { Context } from '../context/context';
+import { Overlay } from './../Common/Overlay';
+import { Wrapper, Title, Message } from './styles';
+import colors from './../utils/colors';
+import { Context } from './../context/context';
 import { backendURL } from './../data/backend';
 
 const { larioja } = colors;
@@ -30,7 +31,6 @@ const Stats = () => {
             return {};
           } else if (res.success.results) {
             setStats(res.success);
-            console.log(res.success);
             return res.success.results;
           } else {
             return {};
@@ -40,7 +40,7 @@ const Stats = () => {
   }, []);
 
   return (
-    <Overlay>
+    <Overlay visible={true}>
       <Wrapper>
         <Title>Statistics</Title>
         {username ? <UserStats stats={stats} /> : <Message>only authorized users can see statistics</Message>}

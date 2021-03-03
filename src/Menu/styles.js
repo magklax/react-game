@@ -1,6 +1,5 @@
-
 import styled from 'styled-components';
-import colors from '../utils/colors';
+import colors from './../utils/colors';
 
 const { white } = colors;
 
@@ -10,11 +9,15 @@ export const Item = styled.li`
   background-color: ${white};
   border-radius: 10px;
   text-align: center;
+
+  &:last-child {
+    grid-column: 1/3;
+  }
 `;
 
 export const Grid = styled.ul`
   display: grid;
-  grid-template-columns: repeat(2, 400px);
+  grid-template-columns: repeat(2, 350px);
   grid-gap: 20px;
 `;
 

@@ -5,6 +5,13 @@ body {
   text-transform: uppercase;
   font-size: 14px;
   color: #333;
+  min-width: 800px;
+}
+
+#root {
+  position: relative;
+  min-height: 750px;
+  height: 100vh;
 }
 
 *,

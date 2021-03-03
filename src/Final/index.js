@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
-import { useHistory } from "react-router-dom";
-import colors from '../utils/colors';
+import React from 'react';
+import colors from './../utils/colors';
 import { Wrapper, Title, Subtitle } from './styles';
 import { Overlay } from './../Common/Overlay';
 import Button from './../Common/Button';
@@ -8,30 +7,12 @@ import Button from './../Common/Button';
 const { eggblue, larioja } = colors;
 
 const Final = () => {
-  const history = useHistory();
-
-  const handleKeyPress = (evt) => {
-
-    if (evt.code === 'F11') {
-      evt.preventDefault();
-
-      history.push('/stats');
-    };
-  }
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyPress);
-    return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-    };
-  }, []);
-
   return (
-    <Overlay isVisible={true}>
+    <Overlay visible={true}>
       <Wrapper>
         <Title>Congrats!</Title>
         <Subtitle>You got all heroes</Subtitle>
-        <Button title="See results(F11)" color={eggblue} path="/stats" />
+        <Button title="See results" color={eggblue} path="/stats" />
         <br />
         <Button title="Play Again" color={larioja} path="/" />
       </Wrapper>

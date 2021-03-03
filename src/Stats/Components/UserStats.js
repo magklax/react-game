@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { heroes } from '../../data/heroes';
+import { heroes } from './../../data/heroes';
 import { Table, TR, TD, TH, Caption } from './styles';
 
 export default ({ stats }) => {

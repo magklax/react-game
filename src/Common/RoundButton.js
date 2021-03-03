@@ -5,7 +5,7 @@ import colors from './../utils/colors';
 const { wisteria, white } = colors;
 
 export const RoundButton = styled(Link)`
-  display: flex;
+  display: ${({ hidden }) => hidden ? 'none' : 'flex'};;
   justify-content: center;
   align-items: center;
   margin-right: 10px;
@@ -15,5 +15,5 @@ export const RoundButton = styled(Link)`
   background-color: ${white};
   border: 5px solid ${wisteria};
   border-radius: 100%;
-  z-index: 7;
+  z-index: ${({ zindex }) => zindex ? zindex : 7};
 `;

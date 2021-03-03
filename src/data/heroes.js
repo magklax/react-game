@@ -7,22 +7,22 @@ import ryder from './images/ryder.png';
 import { shuffleArray } from './../utils/utils';
 
 export const heroes = [
-  // {
-  //   name: 'marshall',
-  //   image: marshall,
-  // },
-  // {
-  //   name: 'george',
-  //   image: george,
-  // },
-  // {
-  //   name: 'blaze',
-  //   image: blaze,
-  // },
-  // {
-  //   name: 'magenta',
-  //   image: magenta,
-  // },
+  {
+    name: 'marshall',
+    image: marshall,
+  },
+  {
+    name: 'george',
+    image: george,
+  },
+  {
+    name: 'blaze',
+    image: blaze,
+  },
+  {
+    name: 'magenta',
+    image: magenta,
+  },
   {
     name: 'peppa',
     image: peppa,

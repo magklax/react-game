@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { Context } from './../context/context';
 import styled from 'styled-components';
+import { Context } from './../context/context';
 import Button from './Button';
 import colors from './../utils/colors';
 
@@ -15,10 +15,10 @@ const Greeting = styled.p`
 `;
 
 const Wrapper = styled.div`
-  display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
+  display: ${({ visible }) => visible ? 'block' : 'none'};
 `;
 
-export default ({ isVisible }) => {
+export default ({ visible }) => {
   const { state, dispatch } = useContext(Context);
 
   const handleClick = () => {
@@ -40,7 +40,7 @@ export default ({ isVisible }) => {
   }
 
   return (
-    <Wrapper isVisible={isVisible}>
+    <Wrapper visible={visible}>
       <Greeting>Hello, {state.username}!</Greeting>
       <Button title="Log out" color={larioja} path="/" onClick={handleClick} />
     </Wrapper>

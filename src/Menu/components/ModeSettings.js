@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Context } from '../../context/context';
-import colors from '../../utils/colors';
-
+import { Context } from './../../context/context';
+import colors from './../../utils/colors';
 import baby from './../images/baby.svg';
 import superman from './../images/superman.svg';
 
@@ -29,7 +28,7 @@ const Item = styled.li`
   cursor: pointer;
 
   img {
-    display: inline-block;
+    max-width: 100px;
     margin-bottom: 10px;
   }
 `;

@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useContext, useMemo } from 'react';
+import React, { useEffect, useContext, useMemo } from 'react';
 import { Context } from '../context/context';
-import Loader from './../Common/Loader';
 import Balloon from "./components/Balloon";
 import Cell from "./components/Сell";
 import Welldone from "./components/Welldone";
 import Question from "./components/Question";
 import Timer from './components/Timer';
 import PauseToggle from './components/PauseToggle';
-import { Cells, Ballons, GameArea, Wrapper, Header, Greeting } from './styles';
+import { useHistory } from 'react-router-dom';
+import { Cells, Ballons, GameArea, Wrapper, Header } from './styles';
 import colors from '../utils/colors';
 import Clue from './components/Clue';
 import AutoPlay from './components/AutoPlay';
@@ -17,23 +17,26 @@ const { strawberry, gold, larioja, eggblue, wisteria } = colors;
 const cellsColors = [strawberry, gold, larioja, eggblue, wisteria];
 
 const Game = () => {
+  const history = useHistory();
   const { state, dispatch } = useContext(Context);
   const { theme, roundState, mode, username, currRound } = state;
   const { word, cells, image, finished } = roundState;
 
-  const balloonArr = useMemo(() => JSON.parse(localStorage.getItem('shuffledHeroes'))[currRound], [word]);
+  console.log(state);
+
+  const balloonArr = useMemo(() => {
+    if (finished) {
+      history.push('/final');
+    }
+
+    return JSON.parse(localStorage.getItem('shuffledHeroes'))[currRound];
+  }, [word]);
+
   const cellArr = useMemo(() => word.split(''), [word]);
   const number = useMemo(() => word.length, [word]);
   const colorArr = useMemo(() => {
     return Array(Math.ceil(number / cellsColors.length)).fill(cellsColors).flat();
   }, [word]);
-
-  // const [loading, setLoading] = useState(true);
-  // const handleLoad = () => setLoading(false);
-  // useEffect(() => {
-  //   window.addEventListener('load', handleLoad);
-  //   return () => window.removeEventListener('load', handleLoad);
-  // }, []);
 
   const handleKeyPress = (evt) => {
     const key = evt.code;
@@ -49,10 +52,6 @@ const Game = () => {
   }
 
   useEffect(() => {
-    for (let i = 0; i < 100; i++) {
-      window.clearInterval(i);
-    }
-
     window.addEventListener('keydown', handleKeyPress);
     return () => {
       window.removeEventListener('keydown', handleKeyPress);
@@ -69,57 +68,55 @@ const Game = () => {
 
   return useMemo(() => (
     <Wrapper bg={theme}>
-      <>
-        <Header>
-          <Back />
-          <PauseToggle />
-          <AutoPlay />
-          <Timer />
-        </Header>
+      <Header>
+        <Back />
+        <PauseToggle />
+        <AutoPlay />
+        <Timer />
+      </Header>
 
-        <Clue />
+      <Clue />
 
-        <GameArea isVisible={finished} >
-          <Ballons>
-            {balloonArr.map((balloon, index) => {
-              if (index < number / 2) {
-                return <Balloon
-                  key={`baloon-${index}`}
-                  char={balloon.char}
-                  index={balloon.index}
-                />
-              }
-            })}
-          </Ballons>
-
-          <Question bg={image} mode={mode} />
-
-          <Ballons>
-            {balloonArr.map((balloon, index) => {
-              if (index >= number / 2) {
-                return <Balloon
-                  key={`baloon-${index}`}
-                  char={balloon.char}
-                  index={balloon.index}
-                />
-              }
-            })}
-          </Ballons>
-
-          <Cells number={number}>
-            {cellArr.map((char, index) => (
-              <Cell
-                key={`cell-${index}`}
-                color={colorArr[index]}
-                char={char}
-                index={index}
+      <GameArea visible={finished}>
+        <Ballons>
+          {balloonArr && balloonArr.map((balloon, index) => {
+            if (index < number / 2) {
+              return <Balloon
+                key={`baloon-${index}`}
+                char={balloon.char}
+                index={balloon.index}
               />
-            ))}
-          </Cells>
-        </GameArea>
+            }
+          })}
+        </Ballons>
 
-        <Welldone isVisible={finished} />
-      </>
+        <Question bg={image} mode={mode} />
+
+        <Ballons>
+          {balloonArr && balloonArr.map((balloon, index) => {
+            if (index >= number / 2) {
+              return <Balloon
+                key={`baloon-${index}`}
+                char={balloon.char}
+                index={balloon.index}
+              />
+            }
+          })}
+        </Ballons>
+
+        <Cells number={number}>
+          {cellArr.length && cellArr.map((char, index) => (
+            <Cell
+              key={`cell-${index}`}
+              color={colorArr[index]}
+              char={char}
+              index={index}
+            />
+          ))}
+        </Cells>
+      </GameArea>
+
+      <Welldone visible={finished} />
     </Wrapper >
   ), [word, theme, finished, mode, username]);
 }

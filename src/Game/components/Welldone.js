@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { FaPlay } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import colors from './../../utils/colors';
 import { Context } from '../../context/context';
-import { FaPlay } from "react-icons/fa";
 import { Overlay } from './../../Common/Overlay';
 
 import { backendURL } from './../../data/backend';
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
   text-align: center;
 `;
 
-export default ({ isVisible }) => {
+export default ({ visible }) => {
   const [isOver, setIsOver] = useState(false);
   const { state, dispatch } = useContext(Context);
   const { roundNumber, currRound, username, gameResults } = state;
@@ -52,7 +52,7 @@ export default ({ isVisible }) => {
     if (roundNumber <= currRound) setIsOver(true);
   }, [currRound]);
 
-  useEffect(() => ref.current.focus(), [isVisible]);
+  useEffect(() => ref.current.focus(), [visible]);
 
   const onClick = () => {
     if (isOver) {
@@ -75,7 +75,7 @@ export default ({ isVisible }) => {
   }
 
   return (
-    <Overlay isVisible={isVisible} zIndex={10} >
+    <Overlay visible={visible} zIndex={10} >
       <Wrapper>
         <Message>Well Done!</Message>
         <Button

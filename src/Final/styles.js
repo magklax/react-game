@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import colors from './../utils/colors';
 
-import colors from '../utils/colors';
-const { torchred, ziggurat, white } = colors;
+const { torchred, white } = colors;
 
 export const Title = styled.h2`
   margin-bottom: 20px;

@@ -14,7 +14,6 @@ class State {
     this.currRound = 0;
     this.roundNumber = ROUND_NUM;
     this.game = false;
-    this.total = [];
     this.roundState = {
       auto: false,
       word: heroes[this.currRound].name,
@@ -35,13 +34,11 @@ export const initialState = new State();
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'username':
-      console.log('username');
       return {
         ...state,
         username: action.payload,
       };
     case 'gameload':
-      console.log('gameload');
       return {
         ...state,
         roundState: {
@@ -54,7 +51,6 @@ export const reducer = (state, action) => {
         },
       };
     case 'gamestart':
-      console.log('gamestart');
       return {
         ...state,
         game: true,
@@ -72,16 +68,13 @@ export const reducer = (state, action) => {
         },
       };
     case 'gameover':
-      console.log('gameover');
       return {
         ...initialState,
         gameResults: state.gameResults,
         username: state.username,
-        total: [...state.total, state.gameResults],
       };
 
     case 'roundstart':
-      console.log('roundstart');
       return {
         ...state,
         roundState: {
@@ -98,7 +91,6 @@ export const reducer = (state, action) => {
       };
 
     case 'roundover':
-      console.log('roundover');
       return {
         ...state,
         currRound: state.currRound + 1,
@@ -121,50 +113,45 @@ export const reducer = (state, action) => {
       };
 
     case 'pausetoggle':
-      console.log('pausetoggle');
       return { ...state, roundState: { ...state.roundState, paused: !state.roundState.paused } };
 
     case 'autoplay':
-      console.log('autoplay');
       return { ...state, roundState: { ...state.roundState, auto: true, currChar: '' } };
 
     case 'addresult':
-      console.log('addresult');
       return {
         ...state,
         gameResults: { ...state.gameResults, ...action.payload }
       }
 
     case 'music':
-      console.log('music');
       return { ...state, volume: { ...state.volume, music: action.payload } };
 
     case 'sound':
-      console.log('theme');
       return { ...state, volume: { ...state.volume, sound: action.payload } };
 
     case 'theme':
-      console.log('theme');
       return { ...state, theme: action.payload };
 
     case 'balloon':
-      console.log('balloon');
       return { ...state, balloon: action.payload };
 
     case 'mode':
-      console.log('mode');
       return { ...state, mode: action.payload };
 
     case 'clickOnBallon':
-      console.log('clickOnBallon');
       return { ...state, roundState: { ...state.roundState, currChar: action.payload } };
 
     case 'pressKey':
-      console.log('pressKey');
-      return { ...state, roundState: { ...state.roundState, pressedKey: action.payload } };
+      return {
+        ...state, roundState: {
+          ...state.roundState,
+          pressedKey: action.payload,
+          currChar: '',
+        }
+      };
 
     default:
-      console.log('default');
       return state;
   }
 }

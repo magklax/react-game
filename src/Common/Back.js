@@ -1,17 +1,30 @@
-import React, { useContext, useEffect } from 'react';
-import { Context } from './../context/context';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 import { RoundButton } from './RoundButton';
-import { FaHome } from "react-icons/fa";
-
-import colors from './../utils/colors';
-
-const { larioja, gold } = colors;
 
 export default () => {
+  const history = useHistory();
+
+  const handleKeyPress = (evt) => {
+
+    if (evt.code === 'F11') {
+      evt.preventDefault();
+
+      history.push('/');
+    };
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyPress);
+    return () => {
+      window.removeEventListener('keydown', handleKeyPress);
+    };
+  }, []);
+
   return (
     <>
-      <RoundButton to="/">
+      <RoundButton to="/" zindex={9}>
         <FaHome />
       </RoundButton>
     </>

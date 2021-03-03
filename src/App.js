@@ -11,8 +11,6 @@ import MisicToggle from './Common/MusicToggle';
 import Final from './Final';
 import Stats from './Stats';
 
-// const PATH = 'https://ssl.gstatic.com/dictionary/static/sounds/oxford/';
-
 const App = () => {
   const [state, dispatch] = useReducer(reducer, JSON.parse(localStorage.getItem('state')) || initialState);
 
@@ -36,8 +34,6 @@ const App = () => {
   useEffect(() => dispatch({
     type: 'gameload',
   }), []);
-
-  console.log(state);
 
   return (
     <Context.Provider value={{ state, dispatch }}>

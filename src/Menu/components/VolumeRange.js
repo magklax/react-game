@@ -4,7 +4,6 @@ import Slider from '@material-ui/core/Slider';
 import { withStyles } from '@material-ui/core/styles';
 import { MdVolumeUp, MdVolumeOff } from 'react-icons/md';
 import { Context } from './../../context/context';
-
 import colors from './../../utils/colors';
 
 const { torchred } = colors;

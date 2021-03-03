@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Context } from '../../context/context';
 import styled from 'styled-components';
-import colors from '../../utils/colors';
+import { Context } from './../../context/context';
+import colors from './../../utils/colors';
 
 const { white, wisteria } = colors;
 
 const Timer = styled.div`
-  display: ${({ isVisible }) => isVisible ? 'block' : 'none'};
+  display: ${({ visible }) => visible ? 'block' : 'none'};
   font-size: 42px;
   color: ${white};
   -webkit-text-stroke: 4px ${wisteria};
@@ -15,7 +15,8 @@ const Timer = styled.div`
 
 export default () => {
   const { state, dispatch } = useContext(Context);
-  const { played, paused, finished, word, auto } = state.roundState;
+  const { game, roundState } = state;
+  const { played, paused, finished, word, auto } = roundState;
 
   const [minute, setMinute] = useState('00');
   const [second, setSecond] = useState('00');
@@ -25,7 +26,7 @@ export default () => {
   useEffect(() => {
     let interval;
 
-    if (played && !paused && state.game && !auto) {
+    if (played && !paused && game && !auto) {
       interval = setInterval(() => {
         const minCounter = Math.floor(counter / 60);
         const secCounter = counter % 60;
@@ -40,7 +41,8 @@ export default () => {
     return () => {
       clearInterval(interval);
     };
-  }, [counter, played, paused, state.game]);
+
+  }, [counter, played, paused, game, auto]);
 
   useEffect(() => {
     if (finished) {
@@ -61,7 +63,7 @@ export default () => {
 
   return (
     <>
-      <Timer isVisible={played && !auto}>
+      <Timer visible={played && !auto}>
         <span>{minute}</span>:<span>{second}</span>
       </Timer>
     </>

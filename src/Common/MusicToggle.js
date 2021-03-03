@@ -1,11 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { FaDrum } from "react-icons/fa";
-import { Context } from '../context/context';
-
+import { Context } from './../context/context';
 import colors from './../utils/colors';
 import url from './audio/playground.mp3';
-
 
 const { torchred, wisteria, white } = colors;
 
@@ -44,7 +42,9 @@ const Button = styled.button`
 `;
 
 const useAudio = (url, volume) => {
-  const [audio] = useState(new Audio(url));
+  const music = new Audio(url);
+  music.loop = true;
+  const [audio] = useState(music);
   const [playing, setPlaying] = useState(false);
   const toggle = () => setPlaying(prev => !prev);
 
@@ -52,13 +52,6 @@ const useAudio = (url, volume) => {
     audio.volume = volume;
     playing ? audio.play() : audio.pause();
   }, [playing, volume]);
-
-  useEffect(() => {
-    audio.addEventListener('ended', () => setPlaying(false));
-    return () => {
-      audio.removeEventListener('ended', () => setPlaying(false));
-    };
-  }, []);
 
   return [playing, toggle];
 };

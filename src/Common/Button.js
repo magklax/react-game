@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import colors from './../utils/colors';
 
-import colors from '../utils/colors';
 const { white } = colors;
 
 const Button = styled(Link)`

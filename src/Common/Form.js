@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import { Context } from './../context/context';
-import { useHistory } from "react-router-dom";
-import { backendURL } from './../data/backend';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import colors from '../utils/colors';
+import { Context } from './../context/context';
+import { backendURL } from './../data/backend';
+import colors from './../utils/colors';
 
 const { white, coral } = colors;
 

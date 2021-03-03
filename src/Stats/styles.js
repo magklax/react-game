@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import colors from './../utils/colors';
 
-import colors from '../utils/colors';
-const { torchred, ziggurat, white } = colors;
+const { torchred, white } = colors;
 
 export const Title = styled.h2`
   margin-bottom: 20px;
@@ -24,16 +24,4 @@ export const Wrapper = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-`;
-
-export const Overlay = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  background-color: ${ziggurat};
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 `;

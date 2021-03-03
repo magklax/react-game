@@ -1,5 +1,5 @@
-import { Overlay } from './../Common/Overlay';
 import styled from 'styled-components';
+import { Overlay } from './../Common/Overlay';
 import Form from './../Common/Form';
 import Back from './../Common/Back';
 
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
 
 export default () => {
   return (
-    <Overlay isVisible={true}>
+    <Overlay visible={true}>
       <Wrapper>
         <Back />
       </Wrapper>

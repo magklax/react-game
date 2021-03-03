@@ -14,7 +14,7 @@ export const Header = styled.div`
 export const Cells = styled.div`
   grid-column: 1/4;
   display: grid;
-  grid-template-columns: repeat(${({ number }) => number}, minmax(100px, 200px));
+  grid-template-columns: repeat(${({ number }) => number}, 1fr);
   grid-gap: 25px;
   justify-content: center;
   padding: 0 5%;
@@ -29,12 +29,11 @@ export const Ballons = styled.div`
 
 export const GameArea = styled.div`
   flex-grow: 1;
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
-  display: ${({ isVisible }) => isVisible ? 'none' : 'grid'};
+  display: ${({ visible }) => visible ? 'none' : 'grid'};
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
-  padding-bottom: 50px;
 `;
 
 export const Greeting = styled.p`
@@ -48,9 +47,11 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
-  height: 100vh;
-  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
   background-color: ${ziggurat};
   background-image: url(${({ bg }) => bg});
   background-size: cover;

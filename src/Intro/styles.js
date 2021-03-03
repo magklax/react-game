@@ -1,6 +1,5 @@
 import styled, { keyframes } from 'styled-components';
 import colors from './../utils/colors';
-
 import bg from './images/bg.svg';
 import sun from './images/sun.svg';
 import rays from './images/sun-rays.svg';
@@ -96,11 +95,11 @@ export const Wrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-  display: ${({ isVisible }) => isVisible ? 'none' : 'block'};
+  display: ${({ visible }) => visible ? 'none' : 'block'};
 `;
 
 export const Overlay = styled.div`
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   right: 0;

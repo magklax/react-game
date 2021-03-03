@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { FaForward } from 'react-icons/fa';
 import { RoundButton } from './../../Common/RoundButton';
 import { Context } from './../../context/context';
-import { FaForward } from "react-icons/fa";
 
 export default () => {
   const { state, dispatch } = useContext(Context);
@@ -14,8 +14,9 @@ export default () => {
     })
   }
 
+  let interval;
+
   useEffect(() => {
-    let interval;
 
     if (auto) {
       let count = cells.length;
@@ -31,6 +32,10 @@ export default () => {
       }, 1500);
     }
   }, [auto]);
+
+  useEffect(() => {
+    clearInterval(interval);
+  }, []);
 
   const autoplay = () => {
     dispatch({
@@ -58,6 +63,7 @@ export default () => {
       <RoundButton
         onClick={autoplay}
         to="/game"
+        hidden={auto}
       >
         <FaForward />
       </RoundButton>

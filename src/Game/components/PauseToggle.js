@@ -1,8 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { RoundButton } from './../../Common/RoundButton';
-import { FaPause, FaPlay } from "react-icons/fa";
+import { FaPause, FaPlay } from 'react-icons/fa';
 import { Context } from './../../context/context';
-
 
 export default () => {
   const { dispatch } = useContext(Context);
@@ -35,6 +34,7 @@ export default () => {
       <RoundButton
         onClick={togglePause}
         to="/game"
+        zindex={9}
       >
         {icon ? <FaPause /> : <FaPlay />}
       </RoundButton>

@@ -1,6 +1,6 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Context } from '../../context/context';
+import { Context } from './../../context/context';
 import colors from './../../utils/colors';
 import { Overlay } from './../../Common/Overlay';
 
@@ -39,10 +39,10 @@ export default () => {
 
   const { game } = state;
 
-  const [isVisible, setIsVisible] = useState(!game);
+  const [visible, setVisible] = useState(!game);
 
   const closeModal = () => {
-    setIsVisible(false);
+    setVisible(false);
 
     return dispatch({
       type: 'gamestart',
@@ -68,7 +68,7 @@ export default () => {
   }, [game]);
 
   return (
-    <Overlay isVisible={isVisible} zIndex={10} >
+    <Overlay visible={visible} zIndex={10} >
       <Modal onClick={(evt) => evt.stopPropagation()}>
         <Message>Spell the word by clicking the balloon and the matched place at the bottom of screen or typing letters in correct order</Message>
         <Button

@@ -1,8 +1,8 @@
-import React, { useCallback, useContext, useEffect, useRef, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useRef, useMemo, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
-import colors from './../../utils/colors';
-import { Context } from '../../context/context';
 import { confetti } from 'dom-confetti';
+import colors from './../../utils/colors';
+import { Context } from './../../context/context';
 
 const { white, strawberry, larioja } = colors;
 
@@ -44,7 +44,7 @@ const Letter = styled.span`
 const Balloon = styled.div`
   position: relative;
   display: flex;
-  visibility: ${({ isVisible }) => isVisible ? 'visible' : 'hidden'};
+  visibility: ${({ visible }) => visible ? 'visible' : 'hidden'};
   justify-content: center;
   align-items: center;
   animation: ${bounce} ${() => getRandomDelay(3, 4)} linear infinite;
@@ -63,17 +63,17 @@ export default ({ char, index }) => {
   const { pressedKey, currChar, cells, finished } = state.roundState;
 
   const [isChosen, setIsChosen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [visible, setVisible] = useState(true);
 
   const ref = useRef(null);
 
   const bombBalloon = () => {
     getConfetti(ref.current);
-    setIsVisible(false);
+    setVisible(false);
   }
 
   useEffect(() => {
-    setIsVisible(true);
+    setVisible(true);
     setIsChosen(false);
   }, [finished]);
 
@@ -93,7 +93,7 @@ export default ({ char, index }) => {
 
   useEffect(() => {
     if (cells.length && char === cells[index]) {
-      setIsVisible(false);
+      setVisible(false);
     }
   }, []);
 
@@ -104,7 +104,7 @@ export default ({ char, index }) => {
 
   return useMemo(() => (
     <Balloon
-      isVisible={isVisible}
+      visible={visible}
       onClick={handleClick}
       data-char={char}
       data-index={index}
@@ -113,5 +113,5 @@ export default ({ char, index }) => {
       <img src={state.balloon} draggable="false" />
       <Letter isChosen={isChosen}>{char}</Letter>
     </Balloon>
-  ), [isVisible, isChosen, balloon, finished]);
+  ), [visible, isChosen, balloon, finished]);
 }

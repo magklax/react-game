@@ -2,14 +2,12 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Context } from './../../context/context';
 import { heroes } from './../../data/heroes';
-import colors from '../../utils/colors';
-
+import colors from './../../utils/colors';
 import captain from './../images/captain.svg';
 
 const { torchred } = colors;
 
 const Item = styled.div`
-  width: 100%;
   text-align: center;
 `;
 
@@ -28,9 +26,9 @@ const Title = styled.h3`
 const Wrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    grid-row-gap: 10px;
+    grid-column-gap: 40px;
     justify-content: space-between;
-    grid-column: 1/3;
 `;
 
 export default () => {

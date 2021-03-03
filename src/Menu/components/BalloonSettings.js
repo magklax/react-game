@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { Context } from '../../context/context';
-import colors from '../../utils/colors';
-import { balloons } from '../../data/balloons';
+import { Context } from './../../context/context';
+import colors from './../../utils/colors';
+import { balloons } from './../../data/balloons';
 
 const { white, larioja } = colors;
 
