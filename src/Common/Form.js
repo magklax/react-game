@@ -99,10 +99,10 @@ export default ({ route }) => {
                 payload: name,
               });
             } else {
+              setIsNameValid(false);
               alert('Username is already exist!');
             }
           })
-
         break;
 
       case 'signIn':
@@ -130,6 +130,8 @@ export default ({ route }) => {
 
             } else if (res.errors) {
               alert('Invalid username or password!');
+              setIsNameValid(false);
+              setIsPasswordValid(false);
             }
           });
         break;
