@@ -1,19 +1,23 @@
-import React, { useReducer, useEffect } from 'react';
-import { BrowserRouter, Switch, Route, } from "react-router-dom";
-import { Context } from './context/context';
-import { reducer, initialState } from './context/reducer';
-import Intro from './Intro';
-import SignUp from './SignUp';
-import SignIn from './SignIn';
-import Menu from './Menu';
-import Game from './Game';
-import MisicToggle from './Common/MusicToggle';
-import Final from './Final';
-import Stats from './Stats';
-import Footer from './Common/Footer';
+import React, { useReducer, useEffect } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Context } from "./context/context";
+import { reducer, initialState } from "./context/reducer";
+import Intro from "./Intro";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import Menu from "./Menu";
+import Game from "./Game";
+import MisicToggle from "./Common/MusicToggle";
+import FullScreenToggle from "./Common/FullScreenToggle";
+import Final from "./Final";
+import Stats from "./Stats";
+import Footer from "./Common/Footer";
 
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, JSON.parse(localStorage.getItem('state')) || initialState);
+  const [state, dispatch] = useReducer(
+    reducer,
+    JSON.parse(localStorage.getItem("state")) || initialState
+  );
 
   useEffect(() => {
     const getCircularReplacer = () => {
@@ -26,20 +30,25 @@ const App = () => {
           seen.add(value);
         }
         return value;
-      }
-    }
+      };
+    };
 
-    localStorage.setItem('state', JSON.stringify(state, getCircularReplacer()));
+    localStorage.setItem("state", JSON.stringify(state, getCircularReplacer()));
   }, [state]);
 
-  useEffect(() => dispatch({
-    type: 'gameload',
-  }), []);
+  useEffect(
+    () =>
+      dispatch({
+        type: "gameload",
+      }),
+    []
+  );
 
   return (
     <Context.Provider value={{ state, dispatch }}>
       <BrowserRouter>
         <MisicToggle />
+        <FullScreenToggle />
         <Switch>
           <Route exact path="/">
             <Intro />
@@ -65,13 +74,12 @@ const App = () => {
           <Route exact path="/stats">
             <Stats />
           </Route>
-
         </Switch>
       </BrowserRouter>
 
       <Footer />
     </Context.Provider>
   );
-}
+};
 
 export default App;
